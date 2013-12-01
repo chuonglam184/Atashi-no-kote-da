@@ -5,7 +5,6 @@
     android:gravity="center" >
 
     <AutoCompleteTextView
-        
         android:id="@+id/etSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,6 +12,6 @@
         android:ems="10"
         android:imeOptions="actionSearch"
         android:inputType="textAutoComplete|textAutoCorrect"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/green_action_bar" />
 
 </LinearLayout>

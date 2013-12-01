@@ -38,6 +38,11 @@
             android:label="@string/authors"
             android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         </activity>
+        <activity
+            android:name="com.lqc.authors_details.AuthorDetailsActivity"
+            android:label="@string/authors"
+            android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
+        </activity>
     </application>
 
 </manifest>

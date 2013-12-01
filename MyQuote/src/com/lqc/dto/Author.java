@@ -1,15 +1,27 @@
 package com.lqc.dto;
 
+import java.io.Serializable;
+
 import android.graphics.Bitmap;
 import android.media.Image;
 
 public class Author {
+	/**
+	 * 
+	 */
 	private int author_id;
 	private String author_name;
 	private String author_description;
 	private String author_url;
 	private Bitmap author_image;
-	
+	public Author(){}
+	public Author(int id, String name, String desc, String url, Bitmap img){
+		this.author_id = id;
+		this.author_name = name;
+		this.author_description = desc;
+		this.author_url = url;
+		this.author_image = img;
+	}
 	public int getAuthorId(){
 		return this.author_id;
 	}

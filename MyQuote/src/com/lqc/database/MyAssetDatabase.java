@@ -34,6 +34,32 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
+	
+	public Author getAuthorById(int id){
+		Author author = null;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+		qb.setTables(TABLE_AUTHOR);
+		Cursor c = db.rawQuery("Select * From " + TABLE_AUTHOR + " Where " + COLUMN_AUTHOR_ID + " = " + id, null);
+
+		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+			author = new Author();
+			String name = c.getString(c.getColumnIndex(COLUMN_AUTHOR_NAME));
+			String description = c.getString(c.getColumnIndex(COLUMN_AUTHOR_DESCRIPTION));
+			String url = c.getString(c.getColumnIndex(COLUMN_AUTHOR_URL));
+			String image = c.getString(c.getColumnIndex(COLUMN_AUTHOR_IMAGE));
+			author.setAuthorName(name);
+			author.setAuthorDescription(description);
+			Bitmap bmp = Base64ToBitmap(image);
+			author.setAuthorImage(bmp);
+			author.setAuthorURL(url);
+		}
+		c.close();
+		
+		return author;
+	}
 	public ArrayList<Author> getAllAuthor(){
 		ArrayList<Author> list = new ArrayList<Author>();
 
@@ -57,6 +83,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 			author.setAuthorImage(bmp);
 			list.add(author);
 		}
+		c.close();
 		return list;
 	}
 
@@ -78,7 +105,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 			quote.setAuthorId(author_id);
 			list.add(quote);
 		}
-		
+		c.close();
 		return list;
 	}
 	public ArrayList<String> getAllAuthorName(){
@@ -94,6 +121,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 			String name = c.getString(c.getColumnIndex(COLUMN_AUTHOR_NAME));
 			list.add(name);
 		}
+		c.close();
 		return list;
 	}
 

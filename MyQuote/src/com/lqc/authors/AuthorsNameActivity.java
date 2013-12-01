@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -67,6 +68,7 @@ public class AuthorsNameActivity extends MySherlockActivity implements OnItemCli
 			ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, listAuthorName);
 			final AutoCompleteTextView textView = (AutoCompleteTextView)v.findViewById(R.id.etSearch);
 			textView.setFocusable(true);
+		
 			textView.setAdapter(adapter1);
 			textView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -86,11 +88,11 @@ public class AuthorsNameActivity extends MySherlockActivity implements OnItemCli
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		Author author = listAuthor.get(arg2);
-		int author_id = author.getAuthorId();
 		Bundle b = new Bundle();
+		int author_id = listAuthor.get(arg2).getAuthorId();
+		String author_name = listAuthor.get(arg2).getAuthorName();
 		b.putInt("author_id", author_id);
-		b.putString("author_name", listAuthorName.get(arg2));
+		b.putString("author_name", author_name);
 		Intent i = new Intent(getApplicationContext(), AuthorsQuotesActivity.class);
 		i.putExtra("bundle", b);
 		startActivity(i);
