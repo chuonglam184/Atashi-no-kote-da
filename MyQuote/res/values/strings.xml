@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Tu vung tieng Anh</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <color name="green_action_bar">#668000</color>
+    <string name="authors">Authors</string>
+    <string name="all_quotes">All quotes</string>
+    <string name="categories">Categories</string>
+    <string name="share_app">Share this app</string>
+    <string name="top50">Popular</string>
+    <string name="rate">Rate us</string>
+	<string name="settings">Settings</string>
+	<color name="silver_item">#d8d8d8</color>
+	<color name="silver_item_less">#e9e8e8</color>
+	<color name="black">#000000</color>
+	<color name="white">#FFFFFF</color>
+	<string name="search_hint">Type author\'s name here</string>
+	<color name="green_dark">#526a15</color>
+</resources>
