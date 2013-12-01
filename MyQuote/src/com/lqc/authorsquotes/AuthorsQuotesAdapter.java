@@ -22,7 +22,6 @@ public class AuthorsQuotesAdapter extends ArrayAdapter<Quote>{
 	private int layout;
 	private ArrayList<Quote> list;
 	private MySharedPreferences msp;
-	private boolean isBookmarked= false;
 	public AuthorsQuotesAdapter(Activity context, int resource,
 			ArrayList<Quote> objects) {
 		super(context, resource, objects);
@@ -64,38 +63,38 @@ public class AuthorsQuotesAdapter extends ArrayAdapter<Quote>{
 				holder.layoutAuthorsQuotesItem.setBackgroundColor(mContext.getResources().getColor(R.color.silver_item));
 			else
 				holder.layoutAuthorsQuotesItem.setBackgroundColor(mContext.getResources().getColor(R.color.silver_item_less));
-			
 			int marked = msp.getBookmarkQuote(String.valueOf(quote.getQuoteId()));
 			if (marked >=0){
+				holder.isBookmarked = true;
 				holder.ivBookmark.setImageResource(R.drawable.icon_bookmarked);
-			} else
+			} else {
 				holder.ivBookmark.setImageResource(R.drawable.icon_bookmark);
+				holder.isBookmarked = false;
+			}
 			
 			holder.tvQuoteContent.setText(quote.getQuoteContent());
 		}
-		holder.ivBookmark.setOnClickListener(new OnClickListener() {
+		holder.layoutAuthorsQuotesItem.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				isBookmarked = !isBookmarked;
-				if (isBookmarked != true){
+				holder.isBookmarked = !holder.isBookmarked;
+				if (holder.isBookmarked != true){
 					holder.ivBookmark.setImageResource(R.drawable.icon_bookmark);
 					msp.setBookmarkQuote(String.valueOf(quote.getQuoteId()), -1);
 				} else {
 					holder.ivBookmark.setImageResource(R.drawable.icon_bookmarked);
 					msp.setBookmarkQuote(String.valueOf(quote.getQuoteId()), quote.getQuoteId());
 				}
-				
 			}
 		});
-		
-		
 		return convertView;
 	}
 
 	static class ViewHolder{
 		LinearLayout layoutAuthorsQuotesItem;
 		ImageView ivBookmark;
+		boolean isBookmarked;
 		TextView tvQuoteContent;
 	}
 }
