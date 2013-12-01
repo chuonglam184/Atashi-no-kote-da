@@ -934,14 +934,15 @@ containing a value of this type.
         public static final int favorite_touch=0x7f02007f;
         public static final int ic_launcher=0x7f020080;
         public static final int icon_bookmark=0x7f020081;
-        public static final int list_item_background=0x7f020082;
-        public static final int list_menu=0x7f020083;
-        public static final int rate=0x7f020084;
-        public static final int rate_touch=0x7f020085;
-        public static final int share=0x7f020086;
-        public static final int share_touch=0x7f020087;
-        public static final int top50=0x7f020088;
-        public static final int top50_touch=0x7f020089;
+        public static final int icon_bookmarked=0x7f020082;
+        public static final int list_item_background=0x7f020083;
+        public static final int list_menu=0x7f020084;
+        public static final int rate=0x7f020085;
+        public static final int rate_touch=0x7f020086;
+        public static final int share=0x7f020087;
+        public static final int share_touch=0x7f020088;
+        public static final int top50=0x7f020089;
+        public static final int top50_touch=0x7f02008a;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f040020;

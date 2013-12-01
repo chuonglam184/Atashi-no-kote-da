@@ -4,11 +4,18 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.lqc.MySharedPreferences.MySharedPreferences;
 import com.lqc.authors_details.AuthorDetailsActivity;
 import com.lqc.database.MyAssetDatabase;
 import com.lqc.dto.Author;
@@ -16,7 +23,7 @@ import com.lqc.dto.Quote;
 import com.lqc.main.MySherlockActivity;
 import com.lqc.myquote.R;
 
-public class AuthorsQuotesActivity extends MySherlockActivity{
+public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemClickListener {
 	private Author author;
 	private int author_id;
 	private String author_name;
@@ -41,18 +48,17 @@ public class AuthorsQuotesActivity extends MySherlockActivity{
 		lvAuthorsQuotes = (ListView)findViewById(R.id.lvAuthorsQuotes);
 		AuthorsQuotesAdapter adapter = new AuthorsQuotesAdapter(AuthorsQuotesActivity.this, R.layout.authors_quotes_list_item, listQuote);
 		lvAuthorsQuotes.setAdapter(adapter);
+		lvAuthorsQuotes.setOnItemClickListener(this);
 	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
 		getSupportMenuInflater().inflate(R.menu.authors_quotes_menu, menu);
 		return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch (item.getItemId()){
 		case R.id.item_author_details:
 			Intent i = new Intent(getApplicationContext(), AuthorDetailsActivity.class);
@@ -64,4 +70,11 @@ public class AuthorsQuotesActivity extends MySherlockActivity{
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	private boolean is = false;
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		final Quote quote = listQuote.get(arg2);	
+	}
+
 }

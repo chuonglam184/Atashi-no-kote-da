@@ -57,7 +57,6 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 			author.setAuthorURL(url);
 		}
 		c.close();
-		
 		return author;
 	}
 	public ArrayList<Author> getAllAuthor(){

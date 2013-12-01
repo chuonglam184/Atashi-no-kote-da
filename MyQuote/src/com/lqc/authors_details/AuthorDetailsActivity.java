@@ -37,6 +37,7 @@ public class AuthorDetailsActivity extends MySherlockActivity implements OnClick
 		tvName= (TextView)findViewById(R.id.tvAuthorName);
 		tvDescription = (TextView)findViewById(R.id.tvAuthorDescription);
 		tvDescription.setTypeface(font);
+		tvDescription.setTextSize(18);
 		bMoreDetails = (Button)findViewById(R.id.bAuthoreMoreInformation);
 		
 		ActionBar bar = getSupportActionBar();
