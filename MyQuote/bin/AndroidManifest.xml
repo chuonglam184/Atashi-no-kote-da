@@ -43,6 +43,11 @@
             android:label="@string/authors"
             android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         </activity>
+        <activity
+            android:name="com.lqc.allquotes.AllQuotesFragmentActivity"
+            android:label="@string/all_quotes"
+            android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
+        </activity>
     </application>
 
 </manifest>

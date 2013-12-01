@@ -45,45 +45,36 @@ public class AuthorsNameActivity extends MySherlockActivity implements OnItemCli
 		lvAuthor.setAdapter(adapter);
 		lvAuthor.setOnItemClickListener(this);
 
+		// Search bar
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayShowCustomEnabled(true);
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setIcon(R.drawable.action_search);
+		LayoutInflater inflator = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View v = inflator.inflate(R.layout.search_bar, null);
+		actionBar.setCustomView(v);
+		ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, listAuthorName);
+		final AutoCompleteTextView textView = (AutoCompleteTextView)v.findViewById(R.id.etSearch);
+		textView.setFocusable(true);
+	
+		textView.setAdapter(adapter1);
+		textView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				String text = textView.getText().toString();
+				int position = listAuthorName.indexOf(text);
+				lvAuthor.setSelection(position);
+			}
+		});
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.authors_name_menu, menu);
+		//getSupportMenuInflater().inflate(R.menu.authors_name_menu, menu);
 		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()){
-		case R.id.item_authors_name_search:
-			ActionBar actionBar = getSupportActionBar();
-			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setDisplayShowCustomEnabled(true);
-			actionBar.setDisplayShowTitleEnabled(false);
-			actionBar.setIcon(R.drawable.action_search);
-			LayoutInflater inflator = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			View v = inflator.inflate(R.layout.search_bar, null);
-			actionBar.setCustomView(v);
-			ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, listAuthorName);
-			final AutoCompleteTextView textView = (AutoCompleteTextView)v.findViewById(R.id.etSearch);
-			textView.setFocusable(true);
-		
-			textView.setAdapter(adapter1);
-			textView.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					String text = textView.getText().toString();
-					int position = listAuthorName.indexOf(text);
-					lvAuthor.setSelection(position);
-				}
-			});
-			break;
-
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

@@ -48,7 +48,7 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 		lvAuthorsQuotes = (ListView)findViewById(R.id.lvAuthorsQuotes);
 		AuthorsQuotesAdapter adapter = new AuthorsQuotesAdapter(AuthorsQuotesActivity.this, R.layout.authors_quotes_list_item, listQuote);
 		lvAuthorsQuotes.setAdapter(adapter);
-		//lvAuthorsQuotes.setOnItemClickListener(this);
+		lvAuthorsQuotes.setOnItemClickListener(this);
 	}
 	
 	@Override
@@ -75,6 +75,7 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		final Quote quote = listQuote.get(arg2);	
+		Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
 	}
 
 }

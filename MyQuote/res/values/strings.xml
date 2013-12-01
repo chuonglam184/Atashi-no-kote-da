@@ -6,8 +6,8 @@
     <string name="hello_world">Hello world!</string>
     <color name="green_action_bar">#668000</color>
     <string name="authors">Authors</string>
+    <string name="favourite">Favourite</string>
     <string name="all_quotes">All quotes</string>
-    <string name="categories">Categories</string>
     <string name="share_app">Share this app</string>
     <string name="top50">Popular</string>
     <string name="rate">Rate us</string>

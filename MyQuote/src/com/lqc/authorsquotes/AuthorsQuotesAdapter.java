@@ -74,7 +74,7 @@ public class AuthorsQuotesAdapter extends ArrayAdapter<Quote>{
 			
 			holder.tvQuoteContent.setText(quote.getQuoteContent());
 		}
-		holder.layoutAuthorsQuotesItem.setOnClickListener(new OnClickListener() {
+		holder.ivBookmark.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {

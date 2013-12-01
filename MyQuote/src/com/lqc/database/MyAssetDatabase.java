@@ -26,7 +26,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 	private static final String COLUMN_AUTHOR_DESCRIPTION = "author_description";
 	private static final String COLUMN_AUTHOR_URL = "author_url";
 	private static final String COLUMN_AUTHOR_IMAGE = "author_image";
-
+	private static final String COLUMN_PAGE_INDEX = "page_index";
 	private static final String COLUMN_QUOTE_ID = "quote_id";
 	private static final String COLUMN_QUOTE_CONTENT = "quote_content";
 
@@ -86,6 +86,43 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 		return list;
 	}
 
+	public int getPageNumber(){
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+		qb.setTables(TABLE_QUOTE);
+		int page_num = 1;
+		Cursor c = db.rawQuery("Select count(*) as page_num From " + TABLE_QUOTE + " group by " + COLUMN_PAGE_INDEX, null);
+		page_num = c.getCount();
+		c.close();
+		return page_num;
+		
+	}
+	public ArrayList<Quote> getAllQuoteByPageIndex(int idx){
+		ArrayList<Quote> list = new ArrayList<Quote>();
+		
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+		qb.setTables(TABLE_QUOTE);
+		Cursor c = db.rawQuery("Select * From " + TABLE_QUOTE + " Where " + COLUMN_PAGE_INDEX + " = " + idx, null);
+		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+			Quote quote = new Quote();
+			int quote_id = c.getInt(c.getColumnIndex(COLUMN_QUOTE_ID));
+			String quote_content = c.getString(c.getColumnIndex(COLUMN_QUOTE_CONTENT));
+			int author_id = c.getInt(c.getColumnIndex(COLUMN_AUTHOR_ID));
+			int page_index = c.getInt(c.getColumnIndex(COLUMN_PAGE_INDEX));
+			quote.setQuoteId(quote_id);
+			quote.setQuoteContent(quote_content);
+			quote.setAuthorId(author_id);
+			quote.setPageIndex(page_index);
+			
+			list.add(quote);
+		}
+		c.close();
+		return list;
+	}
+	
 	public ArrayList<Quote> getListQuoteByAuthorId(int id){
 		ArrayList<Quote> list = new ArrayList<Quote>();
 		

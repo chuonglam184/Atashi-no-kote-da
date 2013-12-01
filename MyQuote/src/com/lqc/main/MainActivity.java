@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.lqc.allquotes.AllQuotesFragmentActivity;
 import com.lqc.authors.AuthorsNameActivity;
 import com.lqc.myquote.R;
 import com.lqc.settings.SettingsActivity;
@@ -69,7 +70,8 @@ public class MainActivity extends MySherlockActivity implements OnClickListener 
 			startActivity(authors);
 			break;
 		case R.id.bQuotes:
-			
+			Intent quotes = new Intent(getApplicationContext(), AllQuotesFragmentActivity.class); 
+			startActivity(quotes);
 			break;
 		case R.id.bShareApp:
 			
