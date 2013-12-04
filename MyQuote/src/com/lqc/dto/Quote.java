@@ -1,6 +1,12 @@
 package com.lqc.dto;
 
-public class Quote {
+import java.io.Serializable;
+
+public class Quote implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int quote_id;
 	private String quote_content;
 	private int author_id;

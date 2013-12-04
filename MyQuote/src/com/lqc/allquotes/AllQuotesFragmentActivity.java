@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
@@ -25,7 +26,7 @@ public class AllQuotesFragmentActivity extends MySherlockFragmentActivity{
 		madb = new MyAssetDatabase(getApplicationContext());
 		NUMPAGE = madb.getPageNumber();
 		viewPager.setAdapter(adapter);
-		Log.d("num_page", String.valueOf(NUMPAGE));
+			
 	}
 	
 	private class QuoteSlidePagerAdapter extends FragmentStatePagerAdapter{

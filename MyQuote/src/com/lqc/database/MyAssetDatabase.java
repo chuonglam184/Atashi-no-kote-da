@@ -34,10 +34,30 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
-	
+	public Quote getQuoteById(int id){
+		Quote quote = null;
+
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+		qb.setTables(TABLE_QUOTE);
+		Cursor c = db.rawQuery("Select * From " + TABLE_QUOTE + " Where " + COLUMN_QUOTE_ID + " = " + id, null);
+
+		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+			quote = new Quote();
+			int quote_id = c.getInt(c.getColumnIndex(COLUMN_QUOTE_ID));
+			String content = c.getString(c.getColumnIndex(COLUMN_QUOTE_CONTENT));
+			int author_id = c.getInt(c.getColumnIndex(COLUMN_AUTHOR_ID));
+			quote.setQuoteId(quote_id);
+			quote.setQuoteContent(content);
+			quote.setAuthorId(author_id);
+		}
+		c.close();
+		return quote;
+	}
 	public Author getAuthorById(int id){
 		Author author = null;
-		
+
 		SQLiteDatabase db = getReadableDatabase();
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
@@ -96,11 +116,11 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 		page_num = c.getCount();
 		c.close();
 		return page_num;
-		
+
 	}
 	public ArrayList<Quote> getAllQuoteByPageIndex(int idx){
 		ArrayList<Quote> list = new ArrayList<Quote>();
-		
+
 		SQLiteDatabase db = getReadableDatabase();
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
@@ -116,16 +136,16 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 			quote.setQuoteContent(quote_content);
 			quote.setAuthorId(author_id);
 			quote.setPageIndex(page_index);
-			
+
 			list.add(quote);
 		}
 		c.close();
 		return list;
 	}
-	
+
 	public ArrayList<Quote> getListQuoteByAuthorId(int id){
 		ArrayList<Quote> list = new ArrayList<Quote>();
-		
+
 		SQLiteDatabase db = getReadableDatabase();
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
@@ -161,10 +181,10 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 		return list;
 	}
 
-	
+
 	public Bitmap Base64ToBitmap(String data){
 		byte[] imageAsBytes = Base64.decode(data.getBytes(), 0);
 		return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-				
+
 	}
 }

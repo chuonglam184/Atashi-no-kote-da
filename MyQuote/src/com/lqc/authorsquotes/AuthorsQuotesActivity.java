@@ -2,20 +2,21 @@ package com.lqc.authorsquotes;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.lqc.MySharedPreferences.MySharedPreferences;
 import com.lqc.authors_details.AuthorDetailsActivity;
 import com.lqc.database.MyAssetDatabase;
 import com.lqc.dto.Author;
@@ -28,8 +29,10 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 	private int author_id;
 	private String author_name;
 	private ArrayList<Quote> listQuote;
+	private AuthorsQuotesAdapter adapter;
 	private MyAssetDatabase madb = null;
 	private ListView lvAuthorsQuotes;
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,11 +49,16 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 		listQuote = new ArrayList<Quote>();
 		listQuote = madb.getListQuoteByAuthorId(author_id);
 		lvAuthorsQuotes = (ListView)findViewById(R.id.lvAuthorsQuotes);
-		AuthorsQuotesAdapter adapter = new AuthorsQuotesAdapter(AuthorsQuotesActivity.this, R.layout.authors_quotes_list_item, listQuote);
+		adapter = new AuthorsQuotesAdapter(AuthorsQuotesActivity.this, R.layout.authors_quotes_list_item, listQuote);
 		lvAuthorsQuotes.setAdapter(adapter);
 		lvAuthorsQuotes.setOnItemClickListener(this);
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.authors_quotes_menu, menu);
@@ -74,8 +82,19 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 	private boolean is = false;
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		
+		ArrayList<Integer> listQuoteId = new ArrayList<Integer>();
+		for (int i=0; i<listQuote.size();i++){
+			listQuoteId.add(listQuote.get(i).getQuoteId());
+		}
 		final Quote quote = listQuote.get(arg2);	
-		Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
+		Bundle b = new Bundle();
+		b.putInt("selectedIndex", arg2);
+		b.putIntegerArrayList("listQuoteId", listQuoteId);
+		b.putString("author_name", author_name);
+		Intent i = new Intent(getApplicationContext(), AuthorsQuotesFragmentActivity.class);
+		i.putExtra("bundle", b);
+		startActivity(i);
 	}
 
 }
