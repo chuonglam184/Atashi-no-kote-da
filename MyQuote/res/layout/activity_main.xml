@@ -3,16 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
-    
-        android:background="@color/silver_item"
+    android:background="@color/silver_item"
     tools:context=".MainActivity" >
 
     <TableLayout
-        android:background="@color/white"
-        android:layout_margin="10sp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_margin="10sp"
+        android:background="@color/white"
         android:orientation="vertical" >
 
         <TableRow
@@ -38,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/authors"
-                    android:textColor="@color/green_action_bar" />
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -59,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/all_quotes"
-                    android:textColor="@color/green_action_bar" />
+                    android:textColor="@color/black" />
             </LinearLayout>
         </TableRow>
 
@@ -86,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/top50"
-                    android:textColor="@color/green_action_bar" />
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -107,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/favourite"
-                    android:textColor="@color/green_action_bar" />
+                    android:textColor="@color/black" />
             </LinearLayout>
         </TableRow>
 
@@ -134,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/share_app"
-                    android:textColor="@color/green_action_bar" />
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -154,8 +153,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/rate"
-                    android:textColor="@color/green_action_bar" />
+                    android:text="@string/setting"
+                    android:textColor="@color/black" />
             </LinearLayout>
         </TableRow>
     </TableLayout>

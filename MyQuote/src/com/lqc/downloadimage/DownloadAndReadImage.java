@@ -74,8 +74,7 @@ public class DownloadAndReadImage {
             catch(Exception e) 
             {
                 if (externalAvailable && externalWritable){
-	                File direct = new File(Environment.getExternalStorageDirectory() + "/FamousQuote");
-	                Toast.makeText(mContext,"Cannot create folder on sd card!", Toast.LENGTH_LONG).show();
+	                File direct = new File(Environment.getExternalStorageDirectory() + "/Download");
 	                if(!direct.exists())
 	                {
 	                   if(direct.mkdir()){

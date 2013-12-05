@@ -17,13 +17,17 @@ public class AllQuotesFragmentActivity extends MySherlockFragmentActivity{
 	public static int NUMPAGE;
 	QuoteSlidePagerAdapter adapter;
 	private MyAssetDatabase madb;
+	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.quote_slide_pager);
+		
+		// set up view pager to display all quotes in database when user click All quotes in main menu.
 		viewPager = (ViewPager)findViewById(R.id.pager);
 		adapter = new QuoteSlidePagerAdapter(getSupportFragmentManager());
 		madb = new MyAssetDatabase(getApplicationContext());
+		// NumPage is the number of paging group of quotes
 		NUMPAGE = madb.getPageNumber();
 		viewPager.setAdapter(adapter);
 			

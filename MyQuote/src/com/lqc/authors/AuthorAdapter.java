@@ -3,8 +3,6 @@ package com.lqc.authors;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +28,6 @@ public class AuthorAdapter extends ArrayAdapter<Author>{
 
 	@Override
 	public Author getItem(int position) {
-		// TODO Auto-generated method stub
 		return listAuthor.get(position);
 	}
 	@Override
@@ -53,10 +50,10 @@ public class AuthorAdapter extends ArrayAdapter<Author>{
 			holder = (ViewHolder)convertView.getTag();
 		}
 		Author author = listAuthor.get(position);
-		if (author!=null){
+		if (author != null){
 			holder.ivAuthorImage.setImageBitmap(author.getAuthorImage());
 			holder.tvAuthorName.setText(author.getAuthorName());
-			if (position%2==0)
+			if (position % 2 == 0)
 				holder.layoutItem.setBackgroundColor(mContext.getResources().getColor(R.color.silver_item));
 			else 
 				holder.layoutItem.setBackgroundColor(mContext.getResources().getColor(R.color.silver_item_less));

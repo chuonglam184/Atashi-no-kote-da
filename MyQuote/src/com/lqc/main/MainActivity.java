@@ -28,9 +28,6 @@ public class MainActivity extends MySherlockActivity implements OnClickListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		ActionBar bar = getSupportActionBar();
-		bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.green_action_bar)));
-
 		bAuthors = (Button)findViewById(R.id.bAuthors);
 		bQuotes = (Button)findViewById(R.id.bQuotes);
 		bShareApp = (Button)findViewById(R.id.bShareApp);
@@ -48,7 +45,7 @@ public class MainActivity extends MySherlockActivity implements OnClickListener 
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.main, menu);
+		//getSupportMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 

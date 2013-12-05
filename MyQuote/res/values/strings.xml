@@ -12,10 +12,15 @@
     <string name="top50">Popular</string>
     <string name="rate">Rate us</string>
 	<string name="settings">Settings</string>
-	<color name="silver_item">#d8d8d8</color>
+	<color name="silver_item">#e9f0e5</color>
 	<color name="silver_item_less">#e9e8e8</color>
 	<color name="black">#000000</color>
 	<color name="white">#FFFFFF</color>
 	<string name="search_hint">Type author\'s name here</string>
 	<color name="green_dark">#526a15</color>
+	<color name="blue_bar">#6cb4fc</color>
+	<color name="blue_title">#1f67e9</color>
+	<color name="orange">#f4b400</color>
+	<color name="green">#53a93f</color>
+	<string name="setting">Setting</string>
 </resources>

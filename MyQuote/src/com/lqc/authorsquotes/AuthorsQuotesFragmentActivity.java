@@ -8,8 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.lqc.database.MyAssetDatabase;
-import com.lqc.dto.Quote;
 import com.lqc.main.MySherlockFragmentActivity;
 import com.lqc.myquote.R;
 
@@ -22,17 +20,27 @@ public class AuthorsQuotesFragmentActivity extends MySherlockFragmentActivity{
 	
 	private ViewPager vp;
 	private AuthorsQuoteSlidePagerAdapter adapter;
+	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		
+		// get intent
 		listQuoteId = new ArrayList<Integer>();
 		listQuoteId = getIntent().getBundleExtra("bundle").getIntegerArrayList("listQuoteId");
 		author_name = getIntent().getBundleExtra("bundle").getString("author_name");
 		selectedIndex = getIntent().getBundleExtra("bundle").getInt("selectedIndex");
+		
+		// set action bar's title
 		getSupportActionBar().setTitle(author_name);
+		
+		// size of view pager
 		num_quote = listQuoteId.size();
+		
+		// set content view
 		setContentView(R.layout.quote_slide_pager);
+		
+		// setup viewpager
 		vp = (ViewPager)findViewById(R.id.pager);
 		adapter = new AuthorsQuoteSlidePagerAdapter(getSupportFragmentManager());
 		vp.setAdapter(adapter);

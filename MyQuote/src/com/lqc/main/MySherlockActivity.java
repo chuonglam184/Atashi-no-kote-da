@@ -12,6 +12,6 @@ public class MySherlockActivity extends SherlockActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ActionBar bar = getSupportActionBar();
-		bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.green_action_bar)));
+		bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue_bar)));
 	}
 }

@@ -6,11 +6,11 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:gravity="center_vertical"
         android:id="@+id/rl"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" 
-        android:layout_marginBottom="55sp">
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="55sp"
+        android:gravity="center_vertical" >
 
         <ScrollView
             android:id="@+id/scroll"
@@ -28,12 +28,21 @@
             android:id="@+id/tv_authors_quotes_detail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/back_title"
             android:layout_alignBottom="@id/scroll"
+            android:background="@drawable/back_title"
             android:gravity="center"
             android:padding="5sp"
             android:textColor="@color/white"
             android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/bShowHide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/tv_authors_quotes_detail"
+         	android:paddingRight="10sp"
+            android:layout_alignBottom="@id/tv_authors_quotes_detail"
+            android:background="@drawable/show_icon" />
     </RelativeLayout>
 
     <TableLayout
@@ -78,7 +87,7 @@
                     android:id="@+id/ivLike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/like_count_icon_0" />
+                    android:background="@drawable/like_icon_0" />
 
                 <TextView
                     android:id="@+id/tvLikeCount"
@@ -101,6 +110,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/download_icon" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,6 +126,7 @@
                     android:background="@drawable/icon_bookmark" />
             </LinearLayout>
         </TableRow>
+        
     </TableLayout>
 
 </RelativeLayout>

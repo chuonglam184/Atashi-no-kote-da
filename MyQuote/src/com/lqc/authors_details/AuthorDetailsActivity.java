@@ -27,12 +27,14 @@ public class AuthorDetailsActivity extends MySherlockActivity implements OnClick
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.author_details_activity);
 		
+		// get author id
 		author_id = getIntent().getBundleExtra("bundle").getInt("author_id");
-		
+		// create font from asset folder
 		Typeface font = Typeface.createFromAsset(getAssets(), "TIMESI.TTF");
-		
+		// get author detail by author id
 		MyAssetDatabase madb = new MyAssetDatabase(getApplicationContext());
 		author = madb.getAuthorById(author_id);
+		// setup views
 		ivAvatar = (ImageView)findViewById(R.id.ivAuthorAvatar);
 		tvName= (TextView)findViewById(R.id.tvAuthorName);
 		tvDescription = (TextView)findViewById(R.id.tvAuthorDescription);
@@ -50,7 +52,10 @@ public class AuthorDetailsActivity extends MySherlockActivity implements OnClick
 
 	@Override
 	public void onClick(View arg0) {
-		
+		switch (arg0.getId()){
+		case R.id.bAuthoreMoreInformation:
+			break;
+		}
 		
 	}
 }
