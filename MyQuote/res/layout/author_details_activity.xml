@@ -20,7 +20,7 @@
         <TextView
             android:layout_margin="5sp"
             android:textSize="22sp"
-            android:textColor="@color/green_dark"
+            android:textColor="@color/blue_title"
             android:id="@+id/tvAuthorName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

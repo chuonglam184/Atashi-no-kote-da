@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import com.lqc.MySharedPreferences.MySharedPreferences;
 import com.lqc.dto.Author;
 import com.lqc.dto.Quote;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
@@ -30,10 +31,25 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 	private static final String COLUMN_QUOTE_ID = "quote_id";
 	private static final String COLUMN_QUOTE_CONTENT = "quote_content";
 
+	private Context mContext;
 	public MyAssetDatabase(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.mContext = context;
 	}
 
+	public ArrayList<Quote> getBookmarkedQuotes(){
+		ArrayList<Quote> result = new ArrayList<Quote>();
+		int size = getNumOfQuotes();
+		MySharedPreferences msp = new MySharedPreferences(mContext);
+		for (int i=0;i<=size;i++){
+			int bookmarkedId = msp.getBookmarkQuote(String.valueOf(i));
+			if (bookmarkedId >=0){
+				Quote quote = getQuoteById(bookmarkedId);
+				result.add(quote);
+			}
+		}
+		return result;
+	}
 	public Quote getQuoteById(int id){
 		Quote quote = null;
 
@@ -117,6 +133,31 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 		c.close();
 		return page_num;
 
+	}
+	
+	public int getNumOfQuotes(){
+		ArrayList<Quote> list = new ArrayList<Quote>();
+
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+		qb.setTables(TABLE_QUOTE);
+		Cursor c = db.rawQuery("Select * From " + TABLE_QUOTE, null);
+		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+			Quote quote = new Quote();
+			int quote_id = c.getInt(c.getColumnIndex(COLUMN_QUOTE_ID));
+			String quote_content = c.getString(c.getColumnIndex(COLUMN_QUOTE_CONTENT));
+			int author_id = c.getInt(c.getColumnIndex(COLUMN_AUTHOR_ID));
+			int page_index = c.getInt(c.getColumnIndex(COLUMN_PAGE_INDEX));
+			quote.setQuoteId(quote_id);
+			quote.setQuoteContent(quote_content);
+			quote.setAuthorId(author_id);
+			quote.setPageIndex(page_index);
+
+			list.add(quote);
+		}
+		c.close();
+		return list.size();
 	}
 	public ArrayList<Quote> getAllQuoteByPageIndex(int idx){
 		ArrayList<Quote> list = new ArrayList<Quote>();

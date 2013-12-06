@@ -16,6 +16,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.lqc.allquotes.AllQuotesFragmentActivity;
 import com.lqc.authors.AuthorsNameActivity;
+import com.lqc.favourites.FavouritesActivity;
 import com.lqc.myquote.R;
 import com.lqc.settings.SettingsActivity;
 
@@ -77,7 +78,8 @@ public class MainActivity extends MySherlockActivity implements OnClickListener 
 			
 			break;
 		case R.id.bFavorites:
-			
+			Intent favourites = new Intent(getApplicationContext(), FavouritesActivity.class);
+			startActivity(favourites);
 			break;
 		case R.id.bRate:
 			Toast.makeText(getApplicationContext(), "Thank you for rating us!", Toast.LENGTH_SHORT).show();
