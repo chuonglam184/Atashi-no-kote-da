@@ -1,6 +1,8 @@
 package com.lqc.database;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -16,7 +18,7 @@ import com.lqc.dto.Quote;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 public class MyAssetDatabase extends SQLiteAssetHelper{
-
+	
 	private static final String DATABASE_NAME = "db_quotes";
 	private static final int DATABASE_VERSION = 1;
 	private static final String TABLE_AUTHOR = "AUTHOR";
@@ -30,13 +32,13 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 	private static final String COLUMN_PAGE_INDEX = "page_index";
 	private static final String COLUMN_QUOTE_ID = "quote_id";
 	private static final String COLUMN_QUOTE_CONTENT = "quote_content";
-
+	
 	private Context mContext;
 	public MyAssetDatabase(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.mContext = context;
 	}
-
+	
 	public ArrayList<Quote> getBookmarkedQuotes(){
 		ArrayList<Quote> result = new ArrayList<Quote>();
 		int size = getNumOfQuotes();
@@ -48,6 +50,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 				result.add(quote);
 			}
 		}
+		Collections.shuffle(result, new Random(System.nanoTime()));
 		return result;
 	}
 	public Quote getQuoteById(int id){
@@ -119,6 +122,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 			list.add(author);
 		}
 		c.close();
+		//Collections.shuffle(list, new Random(System.nanoTime()));
 		return list;
 	}
 
@@ -181,6 +185,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 			list.add(quote);
 		}
 		c.close();
+		Collections.shuffle(list, new Random(System.nanoTime()));
 		return list;
 	}
 
@@ -203,6 +208,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 			list.add(quote);
 		}
 		c.close();
+		Collections.shuffle(list, new Random(System.nanoTime()));
 		return list;
 	}
 	public ArrayList<String> getAllAuthorName(){
@@ -219,6 +225,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 			list.add(name);
 		}
 		c.close();
+		//Collections.shuffle(list, new Random(System.nanoTime()));
 		return list;
 	}
 

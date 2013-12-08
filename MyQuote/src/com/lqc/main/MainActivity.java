@@ -19,6 +19,7 @@ import com.lqc.authors.AuthorsNameActivity;
 import com.lqc.favourites.FavouritesActivity;
 import com.lqc.myquote.R;
 import com.lqc.settings.SettingsActivity;
+import com.lqc.top.TopActivity;
 
 public class MainActivity extends MySherlockActivity implements OnClickListener {
 
@@ -75,14 +76,14 @@ public class MainActivity extends MySherlockActivity implements OnClickListener 
 			
 			break;
 		case R.id.bPopular:
-			
+			Intent top = new Intent(getApplicationContext(), TopActivity.class);
+			startActivity(top);
 			break;
 		case R.id.bFavorites:
 			Intent favourites = new Intent(getApplicationContext(), FavouritesActivity.class);
 			startActivity(favourites);
 			break;
 		case R.id.bRate:
-			Toast.makeText(getApplicationContext(), "Thank you for rating us!", Toast.LENGTH_SHORT).show();
 			break;
 		}
 	}

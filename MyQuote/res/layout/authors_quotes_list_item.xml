@@ -18,7 +18,6 @@
         android:layout_height="wrap_content"
         android:padding="5sp"
         android:textSize="18sp"
-        android:textColor="@color/blue_title"
-        android:textStyle="italic" />
+        android:textColor="@color/blue_title" />
 
 </LinearLayout>

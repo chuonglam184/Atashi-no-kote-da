@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_authors_quotes_details"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -33,16 +33,25 @@
             android:gravity="center"
             android:padding="5sp"
             android:textColor="@color/white"
+            android:textIsSelectable="true"
             android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/definition"
+            android:textColor="#FF0000"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tv_authors_quotes_detail"
+            android:gravity="center_horizontal" />
 
         <Button
             android:id="@+id/bShowHide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@id/tv_authors_quotes_detail"
-         	android:paddingRight="10sp"
             android:layout_alignBottom="@id/tv_authors_quotes_detail"
-            android:background="@drawable/show_icon" />
+            android:layout_alignRight="@id/tv_authors_quotes_detail"
+            android:background="@drawable/show_icon"
+            android:paddingRight="10sp" />
     </RelativeLayout>
 
     <TableLayout
@@ -71,7 +80,8 @@
                 <TextView
                     android:id="@+id/tvViewCount"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,7 +101,8 @@
                 <TextView
                     android:id="@+id/tvLikeCount"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -124,7 +135,6 @@
                     android:background="@drawable/icon_bookmark" />
             </LinearLayout>
         </TableRow>
-        
     </TableLayout>
 
 </RelativeLayout>

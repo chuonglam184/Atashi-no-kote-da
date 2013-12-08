@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
     <item
-        android:id="@+id/item_authors_name_search"
-        android:showAsAction="always"
-        android:icon="@drawable/action_search"
-        >
-        
+        android:id="@+id/item_top"
+        android:icon="@drawable/list_menu"
+        android:showAsAction="always">
+        <menu>
+        </menu>
     </item>
 
 </menu>

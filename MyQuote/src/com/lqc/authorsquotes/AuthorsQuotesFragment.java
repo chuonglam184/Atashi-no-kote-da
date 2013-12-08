@@ -1,5 +1,10 @@
 package com.lqc.authorsquotes;
 
+import java.text.BreakIterator;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -8,21 +13,33 @@ import org.ksoap2.transport.AndroidHttpTransport;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.text.Spannable;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TextView.BufferType;
+import android.widget.Toast;
 
+import com.actionbarsherlock.view.Menu;
 import com.lqc.MySharedPreferences.MySharedPreferences;
 import com.lqc.database.MyAssetDatabase;
 import com.lqc.downloadimage.DownloadAndReadImage;
@@ -81,9 +98,11 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 		MyAssetDatabase madb = new MyAssetDatabase(getActivity().getApplicationContext());
 		quote = madb.getQuoteById(quote_id);
 		tvContent.setText(quote.getQuoteContent());
-		Typeface font = Typeface.createFromAsset(getResources().getAssets(), "TIMES.TTF");
+		Typeface font = Typeface.createFromAsset(getResources().getAssets(), "Roboto-Light.ttf");
 		tvContent.setTypeface(font);
+		tvContent.setTextSize(18);
 		tvContent.setVisibility(View.INVISIBLE);
+		
 		// Connecting-2-service gets data thread
 		Thread thread = new Thread(){
 			final String SOAP_ACTION = "http://tempuri.org/getImageById";
@@ -130,6 +149,48 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 		return rootView;
 	}
 
+	private void init() {
+	    String definition = quote.getQuoteContent().trim();
+	    //TextView definitionView = (TextView)root.findViewById(R.id.definition);
+	    tvContent.setMovementMethod(LinkMovementMethod.getInstance());
+	    tvContent.setText(definition, BufferType.NORMAL);
+	    Spannable spans = (Spannable) tvContent.getText();
+	    BreakIterator iterator = BreakIterator.getWordInstance(Locale.US);
+	    iterator.setText(definition);
+	    int start = iterator.first();
+	    for (int end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator
+	            .next()) {
+	        String possibleWord = definition.substring(start, end);
+	        if (Character.isLetterOrDigit(possibleWord.charAt(0))) {
+	            ClickableSpan clickSpan = getClickableSpan(possibleWord);
+	            spans.setSpan(clickSpan, start, end,
+	                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+	        }
+	    }
+	}
+	
+	private ClickableSpan getClickableSpan(final String word) {
+	    return new ClickableSpan() {
+	        final String mWord;
+	        {
+	            mWord = word;
+	        }
+
+	        @Override
+	        public void onClick(View widget) {
+	            Bundle b = new Bundle();
+	            b.putString("mWord", mWord);
+	            Intent i = new Intent(getActivity().getApplicationContext(), DictActivity.class);
+	            i.putExtra("bundle", b);
+	            startActivity(i);
+	        }
+
+	        public void updateDrawState(TextPaint ds) {
+	            super.updateDrawState(ds);
+	        }
+	    };
+	}
+	
 	// Button like, button download, button bookmark onClick event
 	@Override
 	public void onClick(View arg0) {
@@ -204,11 +265,13 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.bShowHide:
 			if (isShow == false){
+				
 				tvContent.setText(quote.getQuoteContent());
+				
 				tvContent.setVisibility(View.VISIBLE);
+				init();
 				bShowHide.setBackgroundResource(R.drawable.hide_icon);
 			} else {
-				//tvContent.setText("");
 				tvContent.setVisibility(View.INVISIBLE);
 				bShowHide.setBackgroundResource(R.drawable.show_icon);
 			}
@@ -222,7 +285,6 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 	// Handler updates UI
 	public static final int LOAD_MY_IMAGE = 0;
 	public static final int LIKE_IMAGE = LOAD_MY_IMAGE + 1;
-	public static final int LOAD_DONE = LIKE_IMAGE + 1;
 	public boolean isLiked = false;
 	Handler handler = new Handler(){
 		@Override

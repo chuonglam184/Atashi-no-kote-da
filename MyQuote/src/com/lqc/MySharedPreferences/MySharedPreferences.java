@@ -41,6 +41,7 @@ public class MySharedPreferences {
 		editor.commit();
 	}
 	
+
 	public void getMyLanguage(){
 		SettingsActivity.language = sp.getString(MY_LANGUAGE, MyLanguage.VIETNAMESE);
 	}

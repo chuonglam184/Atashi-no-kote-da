@@ -23,16 +23,16 @@ public class FavouritesActivity extends MySherlockActivity implements OnItemClic
 	private ArrayList<Quote> listBookmarkedQuotes;
 	private AuthorsQuotesAdapter adapter;
 	private MyAssetDatabase madb ;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.favourites_activity);
-		
+
 		madb = new MyAssetDatabase(getApplicationContext());
 		int size = madb.getNumOfQuotes();
 		Log.d("database size", String.valueOf(size));
-		
+
 		madb = new MyAssetDatabase(getApplicationContext());
 		lvFavourites = (ListView)findViewById(R.id.lvFavourites);
 		listBookmarkedQuotes = new ArrayList<Quote>();

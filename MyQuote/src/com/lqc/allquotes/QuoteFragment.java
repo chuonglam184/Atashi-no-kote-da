@@ -58,6 +58,12 @@ public class QuoteFragment extends Fragment implements OnItemClickListener{
 	}
 
 	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
+	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		ArrayList<Integer> listQuoteId = new ArrayList<Integer>();
 		for (int i=0; i<listQuotes.size(); i++)

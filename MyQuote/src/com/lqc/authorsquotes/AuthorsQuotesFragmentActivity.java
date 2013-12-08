@@ -2,16 +2,19 @@ package com.lqc.authorsquotes;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.actionbarsherlock.view.Menu;
 import com.lqc.main.MySherlockFragmentActivity;
 import com.lqc.myquote.R;
 
-public class AuthorsQuotesFragmentActivity extends MySherlockFragmentActivity{
+public class AuthorsQuotesFragmentActivity extends FragmentActivity{
 	
 	private int num_quote = 0;
 	private String author_name;
@@ -32,7 +35,7 @@ public class AuthorsQuotesFragmentActivity extends MySherlockFragmentActivity{
 		selectedIndex = getIntent().getBundleExtra("bundle").getInt("selectedIndex");
 		
 		// set action bar's title
-		getSupportActionBar().setTitle(author_name);
+		//getSupportActionBar().setTitle(author_name);
 		
 		// size of view pager
 		num_quote = listQuoteId.size();
@@ -47,7 +50,11 @@ public class AuthorsQuotesFragmentActivity extends MySherlockFragmentActivity{
 		vp.setCurrentItem(selectedIndex);
 	}
 
-	
+	/*@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.menu_share, menu);
+		return true;
+	}*/
 	private class AuthorsQuoteSlidePagerAdapter extends FragmentStatePagerAdapter{
 
 		public AuthorsQuoteSlidePagerAdapter(FragmentManager fm) {

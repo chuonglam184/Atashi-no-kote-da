@@ -22,6 +22,7 @@ import com.lqc.authorsquotes.AuthorsQuotesActivity;
 import com.lqc.database.MyAssetDatabase;
 import com.lqc.dto.Author;
 import com.lqc.main.MySherlockActivity;
+import com.lqc.main.MySherlockFragmentActivity;
 import com.lqc.myquote.R;
 
 public class AuthorsNameActivity extends MySherlockActivity implements OnItemClickListener{
@@ -79,7 +80,7 @@ public class AuthorsNameActivity extends MySherlockActivity implements OnItemCli
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		//getSupportMenuInflater().inflate(R.menu.authors_name_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.authors_name_menu, menu);
 		return true;
 	}
 

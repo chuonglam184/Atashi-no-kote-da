@@ -3,6 +3,7 @@ package com.lqc.settings;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.lqc.dto.MyLanguage;
 import com.lqc.main.MySherlockActivity;
 import com.lqc.myquote.R;
 
