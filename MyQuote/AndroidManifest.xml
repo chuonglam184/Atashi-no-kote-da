@@ -70,7 +70,7 @@
         </activity>
         <activity
             android:name="com.lqc.favourites.FavouritesActivity"
-            android:label="@string/all_quotes"
+            android:label="@string/favourite"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         </activity>

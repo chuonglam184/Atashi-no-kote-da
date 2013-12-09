@@ -77,7 +77,6 @@ public class AuthorsNameActivity extends MySherlockActivity implements OnItemCli
 		});
 	}
 
-
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		int author_id = listAuthor.get(arg2).getAuthorId();

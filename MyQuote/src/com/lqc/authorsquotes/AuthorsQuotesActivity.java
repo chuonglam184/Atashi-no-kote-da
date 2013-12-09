@@ -57,7 +57,7 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		//getSupportMenuInflater().inflate(R.menu.authors_quotes_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.authors_quotes_menu, menu);
 		return true;
 	}
 	
@@ -83,7 +83,6 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 		for (int i=0; i<listQuote.size();i++){
 			listQuoteId.add(listQuote.get(i).getQuoteId());
 		}
-		final Quote quote = listQuote.get(arg2);	
 		Bundle b = new Bundle();
 		b.putInt("selectedIndex", arg2);
 		b.putIntegerArrayList("listQuoteId", listQuoteId);
