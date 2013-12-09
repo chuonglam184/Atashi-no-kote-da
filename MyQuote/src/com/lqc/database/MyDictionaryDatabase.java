@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
+import android.util.Log;
 
 public class MyDictionaryDatabase extends SQLiteAssetHelper{
 	
@@ -29,7 +30,8 @@ public class MyDictionaryDatabase extends SQLiteAssetHelper{
 	private static final String COLUMN_CONTENT = "content";
 	
 	public String searchMeaning(String word){
-		String meaning = "Word not found!";
+		String meaning = "";
+		word.replace("'", "\"");
 		String path = Environment.getExternalStorageDirectory().getPath();
 		path += "/DIC/anh_viet.db";
 		File dbfile = new File(path ); 
@@ -42,7 +44,39 @@ public class MyDictionaryDatabase extends SQLiteAssetHelper{
 		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
 			meaning = c.getString(c.getColumnIndex(COLUMN_CONTENT));
 		}
+		if (meaning.equals("")){
+			String newword = word.substring(0, word.length()-1);
+			Log.d("new word", newword);
+			c = db.rawQuery("Select content From " + TABLE_ANH_VIET + " Where " + COLUMN_WORD + " = '" + newword + "'", null);
+
+			for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+				meaning = c.getString(c.getColumnIndex(COLUMN_CONTENT));
+			}
+		}
+		if (meaning.equals("")){
+			String newword = word.substring(0, word.length()-2);
+			Log.d("new word", newword);
+			c = db.rawQuery("Select content From " + TABLE_ANH_VIET + " Where " + COLUMN_WORD + " = '" + newword + "'", null);
+
+			for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+				meaning = c.getString(c.getColumnIndex(COLUMN_CONTENT));
+			}
+		}
+		if (meaning.equals("")){
+			String newword = word.substring(0, word.length()-3);
+			newword +="y";
+			Log.d("new word", newword);
+			c = db.rawQuery("Select content From " + TABLE_ANH_VIET + " Where " + COLUMN_WORD + " = '" + newword + "'", null);
+
+			for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+				meaning = c.getString(c.getColumnIndex(COLUMN_CONTENT));
+			}
+		}
+		if (meaning.equals("")){
+			meaning = "Sorry! Word not found!";
+		}
 		c.close();
+		
 		return meaning;
 	}
 }

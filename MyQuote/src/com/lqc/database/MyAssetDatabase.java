@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 
 import com.lqc.MySharedPreferences.MySharedPreferences;
 import com.lqc.dto.Author;
@@ -18,7 +19,7 @@ import com.lqc.dto.Quote;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 public class MyAssetDatabase extends SQLiteAssetHelper{
-	
+
 	private static final String DATABASE_NAME = "db_quotes";
 	private static final int DATABASE_VERSION = 1;
 	private static final String TABLE_AUTHOR = "AUTHOR";
@@ -32,13 +33,13 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 	private static final String COLUMN_PAGE_INDEX = "page_index";
 	private static final String COLUMN_QUOTE_ID = "quote_id";
 	private static final String COLUMN_QUOTE_CONTENT = "quote_content";
-	
+
 	private Context mContext;
 	public MyAssetDatabase(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.mContext = context;
 	}
-	
+
 	public ArrayList<Quote> getBookmarkedQuotes(){
 		ArrayList<Quote> result = new ArrayList<Quote>();
 		int size = getNumOfQuotes();
@@ -98,33 +99,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 		c.close();
 		return author;
 	}
-	public ArrayList<Author> getAllAuthor(){
-		ArrayList<Author> list = new ArrayList<Author>();
 
-		SQLiteDatabase db = getReadableDatabase();
-		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-
-		qb.setTables(TABLE_AUTHOR);
-		Cursor c = db.rawQuery("Select * From " + TABLE_AUTHOR + " order by " + COLUMN_AUTHOR_NAME + " asc", null);
-
-		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
-			Author author = new Author();
-			int id = c.getInt(c.getColumnIndex(COLUMN_AUTHOR_ID));
-			String name = c.getString(c.getColumnIndex(COLUMN_AUTHOR_NAME));
-			String description = c.getString(c.getColumnIndex(COLUMN_AUTHOR_DESCRIPTION));
-			String url = c.getString(c.getColumnIndex(COLUMN_AUTHOR_URL));
-			String image = c.getString(c.getColumnIndex(COLUMN_AUTHOR_IMAGE));
-			author.setAuthorId(id);
-			author.setAuthorName(name);
-			author.setAuthorDescription(description);
-			Bitmap bmp = Base64ToBitmap(image);
-			author.setAuthorImage(bmp);
-			list.add(author);
-		}
-		c.close();
-		//Collections.shuffle(list, new Random(System.nanoTime()));
-		return list;
-	}
 
 	public int getPageNumber(){
 		SQLiteDatabase db = getReadableDatabase();
@@ -138,7 +113,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 		return page_num;
 
 	}
-	
+
 	public int getNumOfQuotes(){
 		ArrayList<Quote> list = new ArrayList<Quote>();
 
@@ -181,7 +156,6 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 			quote.setQuoteContent(quote_content);
 			quote.setAuthorId(author_id);
 			quote.setPageIndex(page_index);
-
 			list.add(quote);
 		}
 		c.close();
@@ -211,6 +185,39 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 		Collections.shuffle(list, new Random(System.nanoTime()));
 		return list;
 	}
+
+	public ArrayList<Author> getAllAuthor(){
+		ArrayList<Author> list = new ArrayList<Author>();
+
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+		qb.setTables(TABLE_AUTHOR);
+		Cursor c = db.rawQuery("Select * From " + TABLE_AUTHOR + " order by " + COLUMN_AUTHOR_NAME + " asc", null);
+
+		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+			Author author = new Author();
+			int id = c.getInt(c.getColumnIndex(COLUMN_AUTHOR_ID));
+			String name = c.getString(c.getColumnIndex(COLUMN_AUTHOR_NAME));
+			String description = c.getString(c.getColumnIndex(COLUMN_AUTHOR_DESCRIPTION));
+			String url = c.getString(c.getColumnIndex(COLUMN_AUTHOR_URL));
+			String image = c.getString(c.getColumnIndex(COLUMN_AUTHOR_IMAGE));
+			author.setAuthorId(id);
+			author.setAuthorName(name);
+			author.setAuthorDescription(description);
+			author.setAuthorURL(url);
+			try{
+				Bitmap bmp = Base64ToBitmap(image);
+				author.setAuthorImage(bmp);
+			} catch(Exception e){
+				Log.d("error bmp", e.toString());
+			}
+			list.add(author);
+		}
+		c.close();
+		return list;
+	}
+
 	public ArrayList<String> getAllAuthorName(){
 		ArrayList<String> list = new ArrayList<String>();
 
@@ -225,7 +232,7 @@ public class MyAssetDatabase extends SQLiteAssetHelper{
 			list.add(name);
 		}
 		c.close();
-		//Collections.shuffle(list, new Random(System.nanoTime()));
+		Log.d("author name size", String.valueOf(list.size()));
 		return list;
 	}
 

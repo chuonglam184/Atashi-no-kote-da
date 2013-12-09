@@ -13,6 +13,7 @@ public class MySharedPreferences {
 	public static final String SP_NAME = "My_SharedPreferences";
 	public static final String TEXT_SIZE = "text_size";
 	public static final String MY_LANGUAGE = "my_language";
+	public static final String BOOKMARK_WORDS = "bookmarked_words";
 	public static ArrayList<Integer> listBookmarked = new ArrayList<Integer>();
 	private SharedPreferences sp;
 	private Editor editor;
@@ -24,6 +25,9 @@ public class MySharedPreferences {
 		editor = sp.edit();
 	}
 	
+	// isBookmarked > 0: save word
+	// isBookmarked =0: remove word
+
 	public int getBookmarkQuote(String strQuoteId){
 		return sp.getInt(strQuoteId, -1);
 	}

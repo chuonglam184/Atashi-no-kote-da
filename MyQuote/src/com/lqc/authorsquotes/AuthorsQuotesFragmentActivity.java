@@ -50,11 +50,6 @@ public class AuthorsQuotesFragmentActivity extends FragmentActivity{
 		vp.setCurrentItem(selectedIndex);
 	}
 
-	/*@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.menu_share, menu);
-		return true;
-	}*/
 	private class AuthorsQuoteSlidePagerAdapter extends FragmentStatePagerAdapter{
 
 		public AuthorsQuoteSlidePagerAdapter(FragmentManager fm) {

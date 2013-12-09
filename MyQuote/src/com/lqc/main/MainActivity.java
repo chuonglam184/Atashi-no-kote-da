@@ -47,7 +47,6 @@ public class MainActivity extends MySherlockActivity implements OnClickListener 
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		//getSupportMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
@@ -84,6 +83,8 @@ public class MainActivity extends MySherlockActivity implements OnClickListener 
 			startActivity(favourites);
 			break;
 		case R.id.bRate:
+			Intent settings = new Intent(getApplicationContext(), SettingsActivity.class);
+			startActivity(settings);
 			break;
 		}
 	}

@@ -3,16 +3,12 @@ package com.lqc.authorsquotes;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -61,7 +57,7 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.authors_quotes_menu, menu);
+		//getSupportMenuInflater().inflate(R.menu.authors_quotes_menu, menu);
 		return true;
 	}
 	

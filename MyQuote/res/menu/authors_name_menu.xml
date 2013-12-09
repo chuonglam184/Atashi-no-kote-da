@@ -5,8 +5,6 @@
         android:id="@+id/item_top"
         android:icon="@drawable/list_menu"
         android:showAsAction="always">
-        <menu>
-        </menu>
     </item>
 
 </menu>

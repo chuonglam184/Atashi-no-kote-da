@@ -86,7 +86,7 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 		ivDownload.setOnClickListener(this);
 		ivBookmarkDetail.setOnClickListener(this);
 		bShowHide.setOnClickListener(this);
-		
+
 		msp = new MySharedPreferences(getActivity().getApplicationContext());
 		isBookmarked = msp.getBookmarkQuote(String.valueOf(quote_id));
 		if (isBookmarked >= 0){
@@ -102,7 +102,7 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 		tvContent.setTypeface(font);
 		tvContent.setTextSize(18);
 		tvContent.setVisibility(View.INVISIBLE);
-		
+
 		// Connecting-2-service gets data thread
 		Thread thread = new Thread(){
 			final String SOAP_ACTION = "http://tempuri.org/getImageById";
@@ -150,47 +150,47 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 	}
 
 	private void init() {
-	    String definition = quote.getQuoteContent().trim();
-	    //TextView definitionView = (TextView)root.findViewById(R.id.definition);
-	    tvContent.setMovementMethod(LinkMovementMethod.getInstance());
-	    tvContent.setText(definition, BufferType.NORMAL);
-	    Spannable spans = (Spannable) tvContent.getText();
-	    BreakIterator iterator = BreakIterator.getWordInstance(Locale.US);
-	    iterator.setText(definition);
-	    int start = iterator.first();
-	    for (int end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator
-	            .next()) {
-	        String possibleWord = definition.substring(start, end);
-	        if (Character.isLetterOrDigit(possibleWord.charAt(0))) {
-	            ClickableSpan clickSpan = getClickableSpan(possibleWord);
-	            spans.setSpan(clickSpan, start, end,
-	                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-	        }
-	    }
+		String definition = quote.getQuoteContent().trim();
+		//TextView definitionView = (TextView)root.findViewById(R.id.definition);
+		tvContent.setMovementMethod(LinkMovementMethod.getInstance());
+		tvContent.setText(definition, BufferType.NORMAL);
+		Spannable spans = (Spannable) tvContent.getText();
+		BreakIterator iterator = BreakIterator.getWordInstance(Locale.US);
+		iterator.setText(definition);
+		int start = iterator.first();
+		for (int end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator
+				.next()) {
+			String possibleWord = definition.substring(start, end);
+			if (Character.isLetterOrDigit(possibleWord.charAt(0))) {
+				ClickableSpan clickSpan = getClickableSpan(possibleWord);
+				spans.setSpan(clickSpan, start, end,
+						Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			}
+		}
 	}
-	
+
 	private ClickableSpan getClickableSpan(final String word) {
-	    return new ClickableSpan() {
-	        final String mWord;
-	        {
-	            mWord = word;
-	        }
+		return new ClickableSpan() {
+			final String mWord;
+			{
+				mWord = word;
+			}
 
-	        @Override
-	        public void onClick(View widget) {
-	            Bundle b = new Bundle();
-	            b.putString("mWord", mWord);
-	            Intent i = new Intent(getActivity().getApplicationContext(), DictActivity.class);
-	            i.putExtra("bundle", b);
-	            startActivity(i);
-	        }
+			@Override
+			public void onClick(View widget) {
+				Bundle b = new Bundle();
+				b.putString("mWord", mWord);
+				Intent i = new Intent(getActivity().getApplicationContext(), DictActivity.class);
+				i.putExtra("bundle", b);
+				startActivity(i);
+			}
 
-	        public void updateDrawState(TextPaint ds) {
-	            super.updateDrawState(ds);
-	        }
-	    };
+			public void updateDrawState(TextPaint ds) {
+				super.updateDrawState(ds);
+			}
+		};
 	}
-	
+
 	// Button like, button download, button bookmark onClick event
 	@Override
 	public void onClick(View arg0) {
@@ -265,9 +265,9 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.bShowHide:
 			if (isShow == false){
-				
+
 				tvContent.setText(quote.getQuoteContent());
-				
+
 				tvContent.setVisibility(View.VISIBLE);
 				init();
 				bShowHide.setBackgroundResource(R.drawable.hide_icon);
@@ -279,7 +279,7 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 			isShow = !isShow;
 			break;
 		}
-		
+
 	}
 
 	// Handler updates UI
@@ -291,7 +291,7 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 		public void handleMessage(Message msg) {
 			if (msg.what == LOAD_MY_IMAGE){
 				myImage = (MyImage)msg.obj;
-				
+
 				// Update like count, view count, and display the image into webview
 				tvLikeCount.setText(String.valueOf(myImage.getLikeCount()));
 				tvViewCount.setText(String.valueOf(myImage.getViewCount()));
@@ -300,7 +300,7 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 				wvDetail.loadDataWithBaseURL(null, x, "text/html", "utf-8", null);
 			}
 			if (msg.what == LIKE_IMAGE){
-				
+
 				// Update new like count after user click like button
 				int currentLike = Integer.parseInt(tvLikeCount.getText().toString());
 				tvLikeCount.setText(String.valueOf(currentLike + 1));

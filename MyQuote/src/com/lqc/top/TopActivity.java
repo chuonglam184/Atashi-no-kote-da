@@ -24,10 +24,10 @@ public class TopActivity extends MySherlockActivity{
 		tabTopView.setContent(new Intent(this, TopViewActivity.class));
 		
 		tabTopLike.setIndicator("Top like");
-		tabTopLike.setContent(new Intent(this, TopLikeActivity.class));*/
+		tabTopLike.setContent(new Intent(this, TopLikeActivity.class));
 		
 		tabHost.addTab(tabTopView);
-		tabHost.addTab(tabTopLike);
+		tabHost.addTab(tabTopLike);*/
 	}
 	
 	@Override
