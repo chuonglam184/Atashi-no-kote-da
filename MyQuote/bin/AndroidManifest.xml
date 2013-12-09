@@ -81,7 +81,6 @@
         </activity>
         <activity
             android:name="com.lqc.authorsquotes.DictActivity"
-            android:label="@string/meaning"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
     </application>

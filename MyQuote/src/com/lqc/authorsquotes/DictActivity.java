@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lqc.database.Decompress;
@@ -35,6 +36,7 @@ import com.lqc.myquote.R;
 public class DictActivity extends Activity implements OnInitListener{
 	WebView wvDict;
 	ImageView ivReadWord;
+	TextView tvWordRead;
 	private TextToSpeech myTTS;
 	private int MY_DATA_CHECK_CODE = 0;
 	
@@ -48,6 +50,8 @@ public class DictActivity extends Activity implements OnInitListener{
 		inputString = inputString.toLowerCase(Locale.ENGLISH);
 		setContentView(R.layout.dict_activity);
 		wvDict = (WebView)findViewById(R.id.wvDict);
+		tvWordRead = (TextView)findViewById(R.id.tvWordRead);
+		tvWordRead.setText(inputString);
 		ivReadWord = (ImageView)findViewById(R.id.ivReadWord);
 		ivReadWord.setOnClickListener(new OnClickListener() {
 			

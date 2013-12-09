@@ -9,19 +9,19 @@
         android:layout_height="wrap_content"
         android:gravity="center" >
 
+        <TextView
+            android:id="@+id/tvWordRead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5sp" />
+
         <ImageView
-            android:padding="5sp"
             android:id="@+id/ivReadWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5sp"
             android:src="@drawable/icon_read" >
         </ImageView>
-
-        <TextView
-            android:padding="5sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Read this word" />
     </LinearLayout>
 
     <WebView

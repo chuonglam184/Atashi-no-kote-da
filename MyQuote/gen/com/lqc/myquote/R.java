@@ -961,7 +961,7 @@ containing a value of this type.
         public static final int view_count_icon=0x7f020096;
     }
     public static final class id {
-        public static final int LinearLayout01=0x7f04005a;
+        public static final int LinearLayout01=0x7f04005b;
         public static final int abs__action_bar=0x7f040020;
         public static final int abs__action_bar_container=0x7f04001f;
         public static final int abs__action_bar_subtitle=0x7f040011;
@@ -1012,26 +1012,26 @@ containing a value of this type.
         public static final int definition=0x7f040046;
         public static final int disableHome=0x7f040009;
         public static final int edit_query=0x7f040026;
-        public static final int etSearch=0x7f040056;
+        public static final int etSearch=0x7f040057;
         public static final int homeAsUp=0x7f040006;
-        public static final int i_main_settings=0x7f04005d;
-        public static final int itemAllQuotes=0x7f04005f;
-        public static final int itemAuthors=0x7f040060;
-        public static final int itemFavourites=0x7f040061;
-        public static final int itemPopular=0x7f040062;
-        public static final int item_author_details=0x7f04005c;
-        public static final int item_download=0x7f04005e;
-        public static final int item_share=0x7f040063;
-        public static final int item_top=0x7f04005b;
-        public static final int item_top_like=0x7f040065;
-        public static final int item_top_view=0x7f040064;
+        public static final int i_main_settings=0x7f04005e;
+        public static final int itemAllQuotes=0x7f040060;
+        public static final int itemAuthors=0x7f040061;
+        public static final int itemFavourites=0x7f040062;
+        public static final int itemPopular=0x7f040063;
+        public static final int item_author_details=0x7f04005d;
+        public static final int item_download=0x7f04005f;
+        public static final int item_share=0x7f040064;
+        public static final int item_top=0x7f04005c;
+        public static final int item_top_like=0x7f040066;
+        public static final int item_top_view=0x7f040065;
         public static final int ivAuthorAvatar=0x7f040039;
         public static final int ivAuthorImage=0x7f04003e;
         public static final int ivBookmark=0x7f04004e;
         public static final int ivBookmarkDetails=0x7f04004c;
         public static final int ivDownload=0x7f04004b;
         public static final int ivLike=0x7f040049;
-        public static final int ivReadWord=0x7f040050;
+        public static final int ivReadWord=0x7f040051;
         public static final int layoutAuthorsQuotesItem=0x7f04004d;
         public static final int layoutItem=0x7f04003d;
         public static final int layout_authors_quotes_details=0x7f040041;
@@ -1039,12 +1039,12 @@ containing a value of this type.
         public static final int lvAllQuotes=0x7f040038;
         public static final int lvAuthorName=0x7f04003f;
         public static final int lvAuthorsQuotes=0x7f040040;
-        public static final int lvFavourites=0x7f040052;
+        public static final int lvFavourites=0x7f040053;
         public static final int normal=0x7f040001;
-        public static final int pager=0x7f040055;
-        public static final int rbFrance=0x7f040059;
-        public static final int rbVietnamese=0x7f040058;
-        public static final int rgLanguage=0x7f040057;
+        public static final int pager=0x7f040056;
+        public static final int rbFrance=0x7f04005a;
+        public static final int rbVietnamese=0x7f040059;
+        public static final int rgLanguage=0x7f040058;
         public static final int rl=0x7f040042;
         public static final int scroll=0x7f040043;
         public static final int showCustom=0x7f040008;
@@ -1054,15 +1054,16 @@ containing a value of this type.
         public static final int tvAuthorDescription=0x7f04003b;
         public static final int tvAuthorName=0x7f04003a;
         public static final int tvLikeCount=0x7f04004a;
-        public static final int tvName=0x7f040054;
+        public static final int tvName=0x7f040055;
         public static final int tvQuoteContent=0x7f04004f;
-        public static final int tvQuoteDetail=0x7f040053;
+        public static final int tvQuoteDetail=0x7f040054;
         public static final int tvViewCount=0x7f040048;
+        public static final int tvWordRead=0x7f040050;
         public static final int tv_authors_quotes_detail=0x7f040045;
         public static final int useLogo=0x7f040004;
         public static final int wrap_content=0x7f040000;
         public static final int wvDetail=0x7f040044;
-        public static final int wvDict=0x7f040051;
+        public static final int wvDict=0x7f040052;
     }
     public static final class integer {
         public static final int abs__max_action_buttons=0x7f080000;
