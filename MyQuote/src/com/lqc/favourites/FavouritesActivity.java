@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.lqc.MySharedPreferences.MySharedPreferences;
 import com.lqc.authorsquotes.AuthorsQuotesAdapter;
 import com.lqc.authorsquotes.AuthorsQuotesFragmentActivity;
 import com.lqc.database.MyAssetDatabase;
@@ -43,6 +42,11 @@ public class FavouritesActivity extends MySherlockActivity implements OnItemClic
 		lvFavourites.setOnItemClickListener(this);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		ArrayList<Integer> list = new ArrayList<Integer>();

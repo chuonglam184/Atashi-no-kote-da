@@ -27,7 +27,6 @@ public class MySharedPreferences {
 	
 	// isBookmarked > 0: save word
 	// isBookmarked =0: remove word
-
 	public int getBookmarkQuote(String strQuoteId){
 		return sp.getInt(strQuoteId, -1);
 	}
@@ -46,8 +45,8 @@ public class MySharedPreferences {
 	}
 	
 
-	public void getMyLanguage(){
-		SettingsActivity.language = sp.getString(MY_LANGUAGE, MyLanguage.VIETNAMESE);
+	public String getMyLanguage(){
+		return sp.getString(MY_LANGUAGE, "");
 	}
 	
 	public void setMyLanguage(String language){

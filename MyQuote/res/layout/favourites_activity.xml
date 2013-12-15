@@ -12,9 +12,4 @@
         android:cacheColorHint="@android:color/transparent"
         android:choiceMode="singleChoice" >
     </ListView>
-	<TextView
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:text="There's no content here"
-	    android:padding="10sp"/>
 </LinearLayout>

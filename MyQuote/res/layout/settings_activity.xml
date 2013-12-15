@@ -4,52 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
+    <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue_bar"
-        android:padding="10sp"
-        android:text="@string/choose_language"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:layout_margin="10sp"
+        android:gravity="center_horizontal"
+        android:id="@+id/bVietnamese"
+        android:text="Download English-Vietnamese Dictionary" />
 
-    <RadioGroup
-        android:id="@+id/rgLanguage"
+    <Button
+        android:id="@+id/bFrance"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10sp" >
+        android:layout_margin="10sp"
+        android:gravity="center_horizontal"
+        android:text="Download English-France Dictionary" />
 
-        <RadioButton
-            android:id="@+id/rbVietnamese"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Vietnamese" />
-
-        <RadioButton
-            android:id="@+id/rbFrance"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="France" />
-    </RadioGroup>
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue_bar"
-        android:padding="10sp"
-        android:text="Dictionary"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
-	<Button
-	    android:layout_margin="10sp"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center_horizontal"
-	    android:text="Download English-Vietnamese Dictionary"/>
-	<Button
-	    android:layout_margin="10sp"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center_horizontal"
-	    android:text="Download English-France Dictionary"/>
 </LinearLayout>

@@ -4,25 +4,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center" >
 
-        <TextView
-            android:id="@+id/tvWordRead"
+        <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5sp" />
+            android:layout_height="wrap_content" >
 
-        <ImageView
-            android:id="@+id/ivReadWord"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:src="@drawable/icon_read" >
-        </ImageView>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center" >
+
+                <TextView
+                    android:id="@+id/tvWordRead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:textColor="@color/yellow" />
+
+         <!--         <ImageView
+                    android:id="@+id/ivReadWord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:src="@drawable/icon_read" >    
+                </ImageView>      -->
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
 
     <WebView
         android:id="@+id/wvDict"

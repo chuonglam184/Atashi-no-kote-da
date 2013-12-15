@@ -1,12 +1,11 @@
 package com.lqc.top;
 
 import java.util.ArrayList;
-
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,20 +17,20 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-
 import com.actionbarsherlock.app.SherlockFragment;
 import com.lqc.authorsquotes.AuthorsQuotesAdapter;
 import com.lqc.authorsquotes.AuthorsQuotesFragmentActivity;
 import com.lqc.database.MyAssetDatabase;
-import com.lqc.dto.MyImage;
 import com.lqc.dto.Quote;
 import com.lqc.myquote.R;
 
+@SuppressLint("HandlerLeak")
 public class TopLikeActivity extends SherlockFragment implements OnItemClickListener{
 	
 	private ArrayList<Integer> list_id;
 	private ArrayList<Quote> list_quote;
 	private AuthorsQuotesAdapter adapter;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -43,21 +42,23 @@ public class TopLikeActivity extends SherlockFragment implements OnItemClickList
 		adapter = new AuthorsQuotesAdapter(getActivity(), R.layout.authors_quotes_list_item, list_quote);
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(this);
+		
 		return root;
 	}
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
 		Thread thread = new Thread(){
 			final String SOAP_ACTION = "http://tempuri.org/getTopLikeQuoteId";
 			final String METHOD_NAME = "getTopLikeQuoteId";
 			final String NAMESPACE = "http://tempuri.org/";
 			final String URL = "http://atashinokoute.somee.com/service1.asmx";
 			
-
 			@Override
 			public void run() {
+			
 				ArrayList<Integer> listId = new ArrayList<Integer>();
 				SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 				request.addProperty("topCount", 50);
@@ -89,6 +90,8 @@ public class TopLikeActivity extends SherlockFragment implements OnItemClickList
 		thread.start();
 	}
 	
+	
+	
 	public static final int LOAD_TOP_ID = 0;
 	Handler mHandler = new Handler(){
 		@SuppressWarnings("unchecked")
@@ -100,7 +103,6 @@ public class TopLikeActivity extends SherlockFragment implements OnItemClickList
 				MyAssetDatabase madb = new MyAssetDatabase(getSherlockActivity());
 				for (int i=0; i<list_id.size();i++){
 					Quote quote = madb.getQuoteById(list_id.get(i));
-					Log.d("quote_content", quote.getQuoteContent());
 					list_quote.add(quote);
 				}
 				adapter.notifyDataSetChanged();
@@ -109,7 +111,6 @@ public class TopLikeActivity extends SherlockFragment implements OnItemClickList
 	};
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
 		Bundle b = new Bundle();
 		b.putInt("selectedIndex", arg2);
 		b.putIntegerArrayList("listQuoteId", list_id);

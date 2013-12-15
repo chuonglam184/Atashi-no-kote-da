@@ -1,6 +1,5 @@
 package com.lqc.database;
 
-import java.io.File;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -8,14 +7,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.os.Environment;
 import android.util.Log;
 
 public class MyAssetDictionaryDatabase extends SQLiteAssetHelper{
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "anh_viet";
 	private static final String TABLE_ANH_VIET = "anh_viet";
-	private static final String COLUMN_ID = "id";
 	private static final String COLUMN_WORD = "word";
 	private static final String COLUMN_CONTENT = "content";
 	private Context mContext;

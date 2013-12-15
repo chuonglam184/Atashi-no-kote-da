@@ -1,6 +1,5 @@
 package com.lqc.authors_details;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -56,6 +55,5 @@ public class AuthorDetailsActivity extends MySherlockActivity implements OnClick
 		case R.id.bAuthoreMoreInformation:
 			break;
 		}
-		
 	}
 }

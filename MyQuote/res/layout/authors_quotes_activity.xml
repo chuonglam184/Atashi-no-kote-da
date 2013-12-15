@@ -6,10 +6,17 @@
     android:orientation="vertical" >
 
     <ListView
-        android:choiceMode="singleChoice"
-        android:cacheColorHint="@android:color/transparent"
         android:id="@+id/lvAuthorsQuotes"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:choiceMode="singleChoice" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10sp"
+        android:text="Loading..."
+        android:textColor="@color/white" />
 
 </LinearLayout>

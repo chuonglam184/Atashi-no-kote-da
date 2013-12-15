@@ -1,9 +1,12 @@
 package com.lqc.authorsquotes;
 
+import java.io.IOException;
 import java.text.BreakIterator;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
+
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.UnsupportedCallbackException;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -15,6 +18,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,31 +28,29 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TextView.BufferType;
 import android.widget.Toast;
+import android.widget.TextView.BufferType;
 
-import com.actionbarsherlock.view.Menu;
 import com.lqc.MySharedPreferences.MySharedPreferences;
+import com.lqc.checkinternet.CheckInternetConnection;
 import com.lqc.database.MyAssetDatabase;
 import com.lqc.downloadimage.DownloadAndReadImage;
 import com.lqc.dto.MyImage;
 import com.lqc.dto.Quote;
 import com.lqc.myquote.R;
+import com.lqc.settings.SettingsActivity;
 
-@SuppressLint("ValidFragment")
-public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
+@SuppressLint({ "ValidFragment", "HandlerLeak" })
+public class AuthorsQuotesFragment extends Fragment implements OnClickListener, OnLongClickListener{
 
 	private TextView tvContent, tvLikeCount, tvViewCount;
 	private ImageView ivLike, ivDownload, ivBookmarkDetail;
@@ -61,12 +63,13 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 	private MySharedPreferences msp;
 	public static int current_index = 0;
 	private MyImage myImage;
+
+
 	public AuthorsQuotesFragment(){
 
 	}
 	public AuthorsQuotesFragment(int quote_id){
 		this.quote_id  = quote_id;
-
 	}
 
 	@Override
@@ -81,6 +84,7 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 		ivBookmarkDetail = (ImageView)rootView.findViewById(R.id.ivBookmarkDetails);
 		bShowHide = (Button)rootView.findViewById(R.id.bShowHide);
 		wvDetail = (WebView)rootView.findViewById(R.id.wvDetail);
+		wvDetail.setOnLongClickListener(this);	// Press and hold to share image on facebook's wall
 
 		ivLike.setOnClickListener(this);
 		ivDownload.setOnClickListener(this);
@@ -90,9 +94,9 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 		msp = new MySharedPreferences(getActivity().getApplicationContext());
 		isBookmarked = msp.getBookmarkQuote(String.valueOf(quote_id));
 		if (isBookmarked >= 0){
-			ivBookmarkDetail.setImageResource(R.drawable.icon_bookmarked_0);
+			ivBookmarkDetail.setImageResource(R.drawable.icon_bookmarked_1);
 		} else {
-			ivBookmarkDetail.setImageResource(R.drawable.icon_bookmark);
+			ivBookmarkDetail.setImageResource(R.drawable.icon_bookmark_1);
 		}
 
 		MyAssetDatabase madb = new MyAssetDatabase(getActivity().getApplicationContext());
@@ -101,70 +105,71 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 		Typeface font = Typeface.createFromAsset(getResources().getAssets(), "Roboto-Light.ttf");
 		tvContent.setTypeface(font);
 		tvContent.setTextSize(18);
+		tvContent.setTextColor(getResources().getColor(R.color.yellow));
 		tvContent.setVisibility(View.INVISIBLE);
 
 		// Connecting-2-service gets data thread
-		Thread thread = new Thread(){
-			final String SOAP_ACTION = "http://tempuri.org/getImageById";
-			final String METHOD_NAME = "getImageById";
-			final String NAMESPACE = "http://tempuri.org/";
-			final String URL = "http://atashinokoute.somee.com/service1.asmx";
-			MyImage tmp;
-
-			@Override
-			public void run() {
-				SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-				request.addProperty("quote_id", quote_id);
-				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-				envelope.setOutputSoapObject(request);
-				envelope.dotNet = true;
-				AndroidHttpTransport transport = new AndroidHttpTransport(URL);
-				try{
-					transport.call(SOAP_ACTION, envelope);
-					SoapObject result = (SoapObject)envelope.bodyIn;
-					if(result != null)
-					{
-						SoapObject object = (SoapObject)result.getProperty(0);
-						Log.d("object", object.toString());
-						int id = Integer.parseInt(object.getProperty(0).toString());
-						Log.d("id", String.valueOf(id));
-						String image_url = (String)object.getProperty(1).toString();
-						String image_note = (String)object.getProperty(2).toString();
-						int view = Integer.parseInt(object.getProperty(3).toString());
-						int like = Integer.parseInt(object.getProperty(4).toString());
-						tmp = new MyImage(id, image_url, image_note, view, like);
-
-						// Send data to handler updates UI
-						Message mess = handler.obtainMessage(LOAD_MY_IMAGE, tmp);
-						handler.sendMessage(mess);
-					}
-				}catch(Exception e){
-					Log.d("IOException", e.toString());
-				}
-				super.run();
-			}
-		};
-
 		thread.start();
+
 		return rootView;
 	}
 
+	Thread thread = new Thread(){
+		final String SOAP_ACTION = "http://tempuri.org/getImageById";
+		final String METHOD_NAME = "getImageById";
+		final String NAMESPACE = "http://tempuri.org/";
+		final String URL = "http://atashinokoute.somee.com/service1.asmx";
+		MyImage tmp;
+
+		@Override
+		public void run() {
+			SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+			request.addProperty("quote_id", quote_id);
+			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+			envelope.setOutputSoapObject(request);
+			envelope.dotNet = true;
+			AndroidHttpTransport transport = new AndroidHttpTransport(URL);
+			try{
+				transport.call(SOAP_ACTION, envelope);
+				SoapObject result = (SoapObject)envelope.bodyIn;
+				if(result != null)
+				{
+					SoapObject object = (SoapObject)result.getProperty(0);
+					Log.d("object", object.toString());
+					int id = Integer.parseInt(object.getProperty(0).toString());
+					Log.d("id", String.valueOf(id));
+					String image_url = (String)object.getProperty(1).toString();
+					String image_note = (String)object.getProperty(2).toString();
+					int view = Integer.parseInt(object.getProperty(3).toString());
+					int like = Integer.parseInt(object.getProperty(4).toString());
+					tmp = new MyImage(id, image_url, image_note, view, like);
+
+					// Send data to handler updates UI
+					Message mess = handler.obtainMessage(LOAD_MY_IMAGE, tmp);
+					handler.sendMessage(mess);
+				}
+
+			}catch(Exception e){
+				Log.d("IOException", e.toString());
+				handler.sendMessage(handler.obtainMessage(LOAD_MY_IMAGE_FAIL, "file:///android_res/drawable/back_title.png"));
+			}
+			super.run();
+		}
+	};
+
 	private void init() {
 		String definition = quote.getQuoteContent().trim();
-		//TextView definitionView = (TextView)root.findViewById(R.id.definition);
 		tvContent.setMovementMethod(LinkMovementMethod.getInstance());
 		tvContent.setText(definition, BufferType.NORMAL);
 		Spannable spans = (Spannable) tvContent.getText();
 		BreakIterator iterator = BreakIterator.getWordInstance(Locale.US);
 		iterator.setText(definition);
 		int start = iterator.first();
-		for (int end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator
-				.next()) {
+		for (int end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator.next()) {
 			String possibleWord = definition.substring(start, end);
 			if (Character.isLetterOrDigit(possibleWord.charAt(0))) {
 				ClickableSpan clickSpan = getClickableSpan(possibleWord);
-				spans.setSpan(clickSpan, start, end,
-						Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				spans.setSpan(clickSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			}
 		}
 	}
@@ -178,15 +183,21 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 
 			@Override
 			public void onClick(View widget) {
-				Bundle b = new Bundle();
-				b.putString("mWord", mWord);
-				Intent i = new Intent(getActivity().getApplicationContext(), DictActivity.class);
-				i.putExtra("bundle", b);
-				startActivity(i);
+				MySharedPreferences msp = new MySharedPreferences(getActivity().getApplicationContext());
+				String language = msp.getMyLanguage();
+				if (!language.equals("") || SettingsActivity.checkIfDBExists(SettingsActivity.VIETNAMESE) == true){
+					Bundle b = new Bundle();
+					b.putString("mWord", mWord);
+					Intent i = new Intent(getActivity().getApplicationContext(), DictActivity.class);
+					i.putExtra("bundle", b);
+					startActivity(i);
+				} else {
+					Toast.makeText(getActivity(), "You don't have any dictionary, please go to settings and install one!", Toast.LENGTH_SHORT).show();
+				}
 			}
 
 			public void updateDrawState(TextPaint ds) {
-				super.updateDrawState(ds);
+				//super.updateDrawState(ds);
 			}
 		};
 	}
@@ -197,94 +208,106 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 		switch (arg0.getId()){
 		case R.id.ivLike:
 			// Thread connect to service when user click like button
-			Thread threadLike = new Thread(){
-				final String SOAP_ACTION = "http://tempuri.org/setLikeCount";
-				final String METHOD_NAME = "setLikeCount";
-				final String NAMESPACE = "http://tempuri.org/";
-				final String URL = "http://atashinokoute.somee.com/service1.asmx";
-				@Override
-				public void run() {
-					if (isLiked == false){
-						SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-						request.addProperty("quote_id", quote_id);
-						SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-						envelope.setOutputSoapObject(request);
-						envelope.dotNet = true;
-						AndroidHttpTransport transport = new AndroidHttpTransport(URL);
-						try{
-							transport.call(SOAP_ACTION, envelope);
-							Message mess = handler.obtainMessage(LIKE_IMAGE);
-							handler.sendMessage(mess);
-						}catch(Exception e){
-							Log.d("IOException", e.toString());
-						}
-						isLiked = true;
-					}
-					super.run();
-				}
-			};
 			threadLike.start();
 			break;
 		case R.id.ivDownload:
 			// Alert when user click download button
-			AlertDialog.Builder b=new AlertDialog.Builder(getActivity());
-			b.setTitle("Alert");
-			b.setMessage("Click OK to save image!");
-			b.setPositiveButton("OK", new DialogInterface. OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which)
-				{
-					DownloadAndReadImage downloader = new DownloadAndReadImage(getActivity(), myImage.getImageURL());
-					downloader.downloadBitmapImage();					
-				}
-			});
-
-			b.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which)
-				{
-					dialog.cancel();
-				}
-			});
-			b.create().show();
+			CheckInternetConnection checker = new CheckInternetConnection(getActivity().getApplicationContext());
+			if (checker.checkMobileInternetConn() == true)
+				showDownloadImageDialog();
+			else {
+				Toast.makeText(getActivity(), "Cannot download image, please check your Internet connection and try again!", Toast.LENGTH_SHORT).show();
+			}
 			break;
-		case R.id.ivBookmarkDetails:// When user click to bookmark image
+		case R.id.ivBookmarkDetails:
+			// When user click to bookmark image
 			// If image was bookmarked, then remove it from bookmarked list
 			if (isBookmarked >= 0){
 				isBookmarked = -1;
 				msp.setBookmarkQuote(String.valueOf(quote_id), -1);
-			} else {	// else add it to bookmarked list
+			} else {	
+				// else add it to bookmarked list
 				isBookmarked = 0;
 				msp.setBookmarkQuote(String.valueOf(quote_id), quote_id);
 			}	// According to the isBookmarked flag, set bookmark_icon for the label
 			if (isBookmarked >= 0){
-				ivBookmarkDetail.setImageResource(R.drawable.icon_bookmarked_0);
+				ivBookmarkDetail.setImageResource(R.drawable.icon_bookmarked_1);
 			} else {
-				ivBookmarkDetail.setImageResource(R.drawable.icon_bookmark);
+				ivBookmarkDetail.setImageResource(R.drawable.icon_bookmark_1);
 			}
 			break;
 		case R.id.bShowHide:
-			if (isShow == false){
-
-				tvContent.setText(quote.getQuoteContent());
-
-				tvContent.setVisibility(View.VISIBLE);
-				init();
-				bShowHide.setBackgroundResource(R.drawable.hide_icon);
-			} else {
-				tvContent.setVisibility(View.INVISIBLE);
-				bShowHide.setBackgroundResource(R.drawable.show_icon);
-			}
-
-			isShow = !isShow;
+			showHideContent();
 			break;
 		}
-
 	}
 
+	private void showHideContent(){
+		if (isShow == false){
+			tvContent.setText(quote.getQuoteContent());
+			tvContent.setVisibility(View.VISIBLE);
+			init();
+			bShowHide.setBackgroundResource(R.drawable.hide_icon);
+		} else {
+			tvContent.setVisibility(View.INVISIBLE);
+			bShowHide.setBackgroundResource(R.drawable.show_icon);
+		}
+		isShow = !isShow;
+	}
+
+	private Thread threadLike = new Thread(){
+		final String SOAP_ACTION = "http://tempuri.org/setLikeCount";
+		final String METHOD_NAME = "setLikeCount";
+		final String NAMESPACE = "http://tempuri.org/";
+		final String URL = "http://atashinokoute.somee.com/service1.asmx";
+		@Override
+		public void run() {
+			if (isLiked == false){
+				SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+				request.addProperty("quote_id", quote_id);
+				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+				envelope.setOutputSoapObject(request);
+				envelope.dotNet = true;
+				AndroidHttpTransport transport = new AndroidHttpTransport(URL);
+				try{
+					transport.call(SOAP_ACTION, envelope);
+					Message mess = handler.obtainMessage(LIKE_IMAGE);
+					handler.sendMessage(mess);
+				}catch(Exception e){
+					Log.d("IOException", e.toString());
+				}
+				isLiked = true;
+			}
+			super.run();
+		}
+	};
+
+	private void showDownloadImageDialog(){
+		AlertDialog.Builder b=new AlertDialog.Builder(getActivity());
+		b.setTitle("Alert");
+		b.setMessage("Click OK to save image!");
+		b.setPositiveButton("OK", new DialogInterface. OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				DownloadAndReadImage downloader = new DownloadAndReadImage(getActivity(), myImage.getImageURL());
+				downloader.downloadBitmapImage();					
+			}
+		});
+
+		b.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				dialog.cancel();
+			}
+		});
+		b.create().show();
+	}
 	// Handler updates UI
 	public static final int LOAD_MY_IMAGE = 0;
-	public static final int LIKE_IMAGE = LOAD_MY_IMAGE + 1;
+	public static final int LOAD_MY_IMAGE_FAIL = LOAD_MY_IMAGE + 1;
+	public static final int LIKE_IMAGE = LOAD_MY_IMAGE_FAIL + 1;
 	public boolean isLiked = false;
 	Handler handler = new Handler(){
 		@Override
@@ -299,8 +322,8 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 				x+=	"<body ><img id=\"resizeImage\" src=\"" + myImage.getImageURL() + "\" height=\"100%\" alt=\"\" /></body>";
 				wvDetail.loadDataWithBaseURL(null, x, "text/html", "utf-8", null);
 			}
-			if (msg.what == LIKE_IMAGE){
 
+			if (msg.what == LIKE_IMAGE){
 				// Update new like count after user click like button
 				int currentLike = Integer.parseInt(tvLikeCount.getText().toString());
 				tvLikeCount.setText(String.valueOf(currentLike + 1));
@@ -310,5 +333,13 @@ public class AuthorsQuotesFragment extends Fragment implements OnClickListener{
 		}
 	};
 
-
+	@Override
+	public boolean onLongClick(View arg0) {
+		Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+		Uri screenshotUri = Uri.parse(myImage.getImageURL()	);
+		sharingIntent.setType("plain/text");	
+		sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, screenshotUri);
+		startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+		return true;
+	}
 }

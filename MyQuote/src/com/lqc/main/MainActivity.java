@@ -72,7 +72,7 @@ public class MainActivity extends MySherlockActivity implements OnClickListener 
 			startActivity(quotes);
 			break;
 		case R.id.bShareApp:
-			
+			Toast.makeText(getApplicationContext(), "Thanks for sharing!", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.bPopular:
 			Intent top = new Intent(getApplicationContext(), TopActivity.class);

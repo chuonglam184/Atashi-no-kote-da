@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.lqc.authorsquotes.AuthorsQuotesAdapter;
 import com.lqc.authorsquotes.AuthorsQuotesFragmentActivity;
@@ -63,14 +62,15 @@ public class QuoteFragment extends Fragment implements OnItemClickListener{
 	@Override
 	public void onResume() {
 		super.onResume();
+		// update bookmark
 		adapter.notifyDataSetChanged();
 	}
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		ArrayList<Integer> listQuoteId = new ArrayList<Integer>();
-		for (int i=0; i<listQuotes.size(); i++)
+		for (int i=0; i<listQuotes.size(); i++){
 			listQuoteId.add(listQuotes.get(i).getQuoteId());
-
+		}
 		Intent i = new Intent(getActivity().getApplicationContext(), AuthorsQuotesFragmentActivity.class);
 		Bundle b = new Bundle();
 		b.putIntegerArrayList("listQuoteId", listQuoteId);

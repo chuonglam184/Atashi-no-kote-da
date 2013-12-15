@@ -21,40 +21,13 @@
             <WebView
                 android:id="@+id/wvDetail"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_title" />
         </ScrollView>
-
-        <TextView
-            android:id="@+id/tv_authors_quotes_detail"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/scroll"
-            android:background="@drawable/back_title"
-            android:gravity="center"
-            android:padding="5sp"
-            android:textColor="@color/white"
-            android:textIsSelectable="true"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/definition"
-            android:textColor="#FF0000"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/tv_authors_quotes_detail"
-            android:gravity="center_horizontal" />
-
-        <Button
-            android:id="@+id/bShowHide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/tv_authors_quotes_detail"
-            android:layout_alignRight="@id/tv_authors_quotes_detail"
-            android:background="@drawable/show_icon"
-            android:paddingRight="10sp" />
     </RelativeLayout>
 
     <TableLayout
+        android:id="@+id/table"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -132,9 +105,31 @@
                     android:id="@+id/ivBookmarkDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/icon_bookmark" />
+                    android:background="@drawable/icon_bookmark_1" />
             </LinearLayout>
         </TableRow>
     </TableLayout>
+
+    <TextView
+        android:id="@+id/tv_authors_quotes_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/table"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/back_title"
+        android:gravity="center"
+        android:padding="5sp"
+        android:textColor="@color/white"
+        android:textIsSelectable="true"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/bShowHide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/table"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/show_icon"
+        android:paddingRight="50sp" />
 
 </RelativeLayout>

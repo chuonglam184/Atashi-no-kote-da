@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
-import com.lqc.main.MySherlockActivity;
 import com.lqc.main.MySherlockFragmentActivity;
 import com.lqc.myquote.R;
 
@@ -17,7 +15,6 @@ public class TopActivity extends MySherlockFragmentActivity implements TabListen
 	
 	LinearLayout mainLayout;
 	FragmentTransaction transaction= null;
-	private final String TITLE_TOP_VIEW = "Top view";
 	private final String TITLE_TOP_LIKE = "Top like";
 	
 	@Override
@@ -59,18 +56,15 @@ public class TopActivity extends MySherlockFragmentActivity implements TabListen
 		if (tab.getText().equals(TITLE_TOP_LIKE)){
 			executeFragment(new TopLikeActivity());
 		}
-		
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
 		
 	}
 

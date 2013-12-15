@@ -59,13 +59,8 @@ public class AuthorsQuotesAdapter extends ArrayAdapter<Quote>{
 		}
 		final Quote quote = list.get(position);
 		if (quote!=null){
-			/*if (position % 2 == 0)
-				holder.layoutAuthorsQuotesItem.setBackgroundColor(mContext.getResources().getColor(R.color.silver_item));
-			else
-				holder.layoutAuthorsQuotesItem.setBackgroundColor(mContext.getResources().getColor(R.color.silver_item_less));*/
-			
 			int marked = msp.getBookmarkQuote(String.valueOf(quote.getQuoteId()));
-			if (marked >=0){
+			if (marked >= 0){
 				holder.isBookmarked = true;
 				holder.ivBookmark.setImageResource(R.drawable.icon_bookmarked);
 			} else {
@@ -73,7 +68,7 @@ public class AuthorsQuotesAdapter extends ArrayAdapter<Quote>{
 				holder.isBookmarked = false;
 			}
 			
-			holder.tvQuoteContent.setText(quote.getQuoteContent());
+			holder.tvQuoteContent.setText("\"" + quote.getQuoteContent() + "\"");
 		}
 		holder.ivBookmark.setOnClickListener(new OnClickListener() {
 

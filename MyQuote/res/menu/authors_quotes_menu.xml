@@ -6,10 +6,5 @@
         android:icon="@drawable/action_author_detail"
         android:showAsAction="always">
     </item>
-    <item
-        android:id="@+id/item_top"
-        android:icon="@drawable/list_menu"
-        android:showAsAction="always">
-    </item>
 
 </menu>

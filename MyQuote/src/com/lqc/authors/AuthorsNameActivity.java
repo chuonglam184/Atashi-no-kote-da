@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,11 +12,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.lqc.authorsquotes.AuthorsQuotesActivity;
 import com.lqc.database.MyAssetDatabase;
 import com.lqc.dto.Author;
@@ -62,7 +58,6 @@ public class AuthorsNameActivity extends MySherlockActivity implements OnItemCli
 		ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, listAuthorName);
 		final AutoCompleteTextView textView = (AutoCompleteTextView)v.findViewById(R.id.etSearch);
 		textView.setFocusable(true);
-
 		textView.setAdapter(adapter1);
 		textView.setOnItemClickListener(new OnItemClickListener() {
 

@@ -15,13 +15,12 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.lqc.authors_details.AuthorDetailsActivity;
 import com.lqc.database.MyAssetDatabase;
-import com.lqc.dto.Author;
 import com.lqc.dto.Quote;
 import com.lqc.main.MySherlockActivity;
 import com.lqc.myquote.R;
 
 public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemClickListener {
-	private Author author;
+	// This activity displays all author's quotes 
 	private int author_id;
 	private String author_name;
 	private ArrayList<Quote> listQuote;
@@ -36,11 +35,15 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 		
 		Bundle b = getIntent().getBundleExtra("bundle");
 		
+		// get author's name and author's id
 		author_name = b.getString("author_name");
 		author_id = b.getInt("author_id");
 		
+		// set bar's title
 		ActionBar bar = getSupportActionBar();
 		bar.setTitle(author_name);
+		
+		// setup author's quotes listview
 		madb = new MyAssetDatabase(getApplicationContext());
 		listQuote = new ArrayList<Quote>();
 		listQuote = madb.getListQuoteByAuthorId(author_id);
@@ -53,6 +56,7 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 	@Override
 	protected void onResume() {
 		super.onResume();
+		// if bookmarked icon is changed
 		adapter.notifyDataSetChanged();
 	}
 	@Override
@@ -65,6 +69,7 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()){
 		case R.id.item_author_details:
+			// send author_id to get author's quotes by author_id
 			Intent i = new Intent(getApplicationContext(), AuthorDetailsActivity.class);
 			Bundle b = new Bundle();
 			b.putInt("author_id", author_id);
@@ -74,8 +79,7 @@ public class AuthorsQuotesActivity extends MySherlockActivity implements OnItemC
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	private boolean is = false;
+	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -28,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lqc.MySharedPreferences.MySharedPreferences;
 import com.lqc.database.Decompress;
 import com.lqc.database.MyAssetDictionaryDatabase;
 import com.lqc.database.MyDictionaryDatabase;
@@ -42,6 +44,7 @@ public class DictActivity extends Activity implements OnInitListener{
 	
 	private String inputString;
 	MyDictionaryDatabase madb;
+	MySharedPreferences msp ;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,24 +55,22 @@ public class DictActivity extends Activity implements OnInitListener{
 		wvDict = (WebView)findViewById(R.id.wvDict);
 		tvWordRead = (TextView)findViewById(R.id.tvWordRead);
 		tvWordRead.setText(inputString);
-		ivReadWord = (ImageView)findViewById(R.id.ivReadWord);
+		
+		/*ivReadWord = (ImageView)findViewById(R.id.ivReadWord);
 		ivReadWord.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				speakWords(inputString);
 			}
-		});
+		});		
 		Intent checkTTSIntent = new Intent();
         checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);*/
         
-		MyAssetDictionaryDatabase madb = new MyAssetDictionaryDatabase(getApplicationContext());
+		madb = new MyDictionaryDatabase(getApplicationContext());
 		String t = madb.searchMeaning(inputString);
 		wvDict.loadDataWithBaseURL(null, t, "text/html", "utf-8", null);
-		
-		
-		
 		
 		////////////////////////// Unused////////////////////////
 		/*boolean isExists = checkIfDBExists();
@@ -89,6 +90,7 @@ public class DictActivity extends Activity implements OnInitListener{
 	}
 	
 	////////////////////////////////// unused
+	@SuppressWarnings("unused")
 	private void showAlertDialogDownloadChoice() {
 		AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(
 				DictActivity.this);

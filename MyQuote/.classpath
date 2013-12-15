@@ -9,6 +9,5 @@
 	<classpathentry exported="true" kind="lib" path="libs/android-sqlite-asset-helper.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/ksoap2-android-assembly-2.4-jar-with-dependencies.jar"/>
 	<classpathentry exported="true" kind="lib" path="assets/databases/db_quotes.zip"/>
-	<classpathentry exported="true" kind="lib" path="assets/databases/anh_viet.zip"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

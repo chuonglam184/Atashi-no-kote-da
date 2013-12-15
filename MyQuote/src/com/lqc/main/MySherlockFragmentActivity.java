@@ -12,6 +12,7 @@ public class MySherlockFragmentActivity extends SherlockFragmentActivity{
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		ActionBar bar = getSupportActionBar();
-		bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue_bar)));
+		//bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue_bar)));
+		bar.setBackgroundDrawable(getResources().getDrawable(R.drawable.bar));
 	}
 }

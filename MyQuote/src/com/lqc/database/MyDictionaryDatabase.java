@@ -33,7 +33,7 @@ public class MyDictionaryDatabase extends SQLiteAssetHelper{
 		String meaning = "";
 		word.replace("'", "\"");
 		String path = Environment.getExternalStorageDirectory().getPath();
-		path += "/DIC/anh_viet.db";
+		path += "/DIC/anh_viet/anh_viet.db";
 		File dbfile = new File(path ); 
 		SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbfile, null);
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();

@@ -1,9 +1,7 @@
 package com.lqc.dto;
 
-import java.io.Serializable;
 
 import android.graphics.Bitmap;
-import android.media.Image;
 
 public class Author {
 	/**

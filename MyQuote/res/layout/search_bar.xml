@@ -13,6 +13,6 @@
         android:ems="10"
         android:imeOptions="actionSearch"
         android:inputType="textAutoComplete|textAutoCorrect"
-        android:textColor="@color/blue_title" />
+        android:textColor="@color/yellow" />
 
 </LinearLayout>

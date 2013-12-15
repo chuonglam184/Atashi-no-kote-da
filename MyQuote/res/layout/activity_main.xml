@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
-    android:background="@color/white"
+    android:background="@drawable/bc"
     tools:context=".MainActivity" >
 
     <TableLayout
@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_margin="10sp"
-        android:background="@color/white"
         android:orientation="vertical" >
 
         <TableRow
@@ -37,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/all_quotes"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -58,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/authors"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
             </LinearLayout>
         </TableRow>
 
@@ -85,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/favourite"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -106,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/top50"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
             </LinearLayout>
         </TableRow>
 
@@ -133,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/share_app"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -154,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setting"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
             </LinearLayout>
         </TableRow>
     </TableLayout>

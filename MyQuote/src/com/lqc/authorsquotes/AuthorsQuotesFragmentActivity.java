@@ -2,7 +2,6 @@ package com.lqc.authorsquotes;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,14 +9,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.actionbarsherlock.view.Menu;
-import com.lqc.main.MySherlockFragmentActivity;
 import com.lqc.myquote.R;
 
 public class AuthorsQuotesFragmentActivity extends FragmentActivity{
 	
 	private int num_quote = 0;
-	private String author_name;
 	private int selectedIndex = 0;
 	private ArrayList<Integer> listQuoteId;
 	
@@ -31,11 +27,7 @@ public class AuthorsQuotesFragmentActivity extends FragmentActivity{
 		// get intent
 		listQuoteId = new ArrayList<Integer>();
 		listQuoteId = getIntent().getBundleExtra("bundle").getIntegerArrayList("listQuoteId");
-		author_name = getIntent().getBundleExtra("bundle").getString("author_name");
 		selectedIndex = getIntent().getBundleExtra("bundle").getInt("selectedIndex");
-		
-		// set action bar's title
-		//getSupportActionBar().setTitle(author_name);
 		
 		// size of view pager
 		num_quote = listQuoteId.size();
@@ -60,7 +52,6 @@ public class AuthorsQuotesFragmentActivity extends FragmentActivity{
 		public int getItemPosition(Object object) {
 			return super.getItemPosition((AuthorsQuotesFragment)object);
 		}
-		
 		
 		@Override
 		public Fragment getItem(int arg0) {
